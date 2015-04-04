@@ -79,14 +79,14 @@ function login(config, model, cookie, callback) {
                 callback(err);
             } else if (response.statusCode === 302) {
                 log.info("Being redirect: %s", response.headers.location);
-                log.info("Cookie : %s", cookie)
+                log.info("Cookie : %j", cookie)
                 request({
                     uri: response.headers.location
                 }, function(err, response, body) {
                     model.checkLogin(body, callback);
                 })
             } else {
-                log.info("Cookie : %s", cookie)
+                log.info("Cookie : %j", cookie)
                 model.checkLogin(body, callback);
             }
         });

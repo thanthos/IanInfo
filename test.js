@@ -36,7 +36,7 @@ describe('Checking Router Model EPC3825', function() {
         });
     });
 
-    it('Login Failed', function() {
+    it('Login Failed', function(done) {
         fs.readFile('./test/LoginFail.html', function(err, data) {
             var result = router.checkLogin(decoder.write(
                 data));
@@ -49,15 +49,13 @@ describe('Checking Router Model EPC3825', function() {
         });
     });
 
-    it('Status:WAN', function() {
+    it('Status:WAN', function(done) {
         fs.readFile('./test/wan.html', function(err, data) {
             var result = router.parseWANStatus(decoder.write(
                 data));
-            console.log("---------------------WAN");
-            console.log(result);
-            console.log("---------------------WAN");
+
             if (result.MACAddress ==
-                'a4:a27') {
+                'a4:a2:4a:5f:1f:c7') {
                 done();
             } else {
                 done("Expecting to get WAN info.");
@@ -65,15 +63,12 @@ describe('Checking Router Model EPC3825', function() {
         });
     });
 
-    it('Status:LAN', function() {
+    it('Status:LAN', function(done) {
         fs.readFile('./test/lan.html', function(err, data) {
             var result = router.parseLANStatus(decoder.write(
                 data));
-            console.log("---------------------LAN");
-            console.log(result);
-            console.log("---------------------LAN");
             if (result.MACAddress ==
-                'a:c9') {
+                'a4:a2:4a:5f:1f:c9') {
                 done();
             } else {
                 done("Expecting to get WAN info.");
@@ -81,14 +76,10 @@ describe('Checking Router Model EPC3825', function() {
         });
     });
 
-    it('Status:WLAN', function() {
+    it('Status:WLAN', function(done) {
         fs.readFile('./test/wlan.html', function(err, data) {
             var result = router.parseWLANStatus(decoder
-                .write(
-                    data));
-            console.log("---------------------WLAN");
-            console.log(result);
-            console.log("---------------------WLAN");
+                .write(data));
             if (result.vb_macaddr.indexOf(
                     '0C:54:A5:C3:DA:F7') > -1) {
                 done();

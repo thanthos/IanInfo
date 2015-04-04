@@ -8,7 +8,7 @@ var EPC3825 = function() {
 
 /*
 @ htmlBody : The html page to be check against.
-@ callback : return a text message to indicate Login Successful or not. 
+@ callback : return a text message to indicate Login Successful or not.
 
 */
 EPC3825.prototype.checkLogin = function(htmlBody, callback) {
@@ -68,9 +68,7 @@ EPC3825.prototype.parseLANStatus = function(htmlBody, callback) {
     if (callback) {
         callback(null, lanStatus);
     }
-    console.log("---------------------");
-    console.log(lanStatus);
-    console.log("---------------------");
+
     return lanStatus;
 };
 
@@ -94,9 +92,7 @@ EPC3825.prototype.parseWANStatus = function(htmlBody, callback) {
     if (callback) {
         callback(null, wanStatus);
     }
-    console.log("---------------------");
-    console.log(wanStatus);
-    console.log("---------------------");
+
     return wanStatus;
 };
 
@@ -120,9 +116,6 @@ EPC3825.prototype.parseWLANStatus = function(htmlBody, callback) {
     if (callback) {
         callback(null, wlanStatus);
     }
-    console.log("---------------------");
-    console.log(wlanStatus);
-    console.log("---------------------");
     return wlanStatus;
 };
 
