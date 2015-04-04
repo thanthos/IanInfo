@@ -4,130 +4,231 @@ var request = require("request");
 var cheerio = require('cheerio');
 var JSON = require('JSON');
 var config = require('./config.json');
+var modelCatalog = require('./routers/modelConfig.json');
 var bunyan = require('bunyan');
 var async = require('async');
 var log = bunyan.createLogger({
-    name: 'stock_search',
+    name: 'routerChecker',
     streams: [{
         path: './logs/checkLog.log',
-        level: 'debug'
     }, {
         stream: process.stderr,
-        level: "debug"
     }]
 });
 
-var j = request.jar();
+var cookie = request.jar();
 var request = request.defaults({
     jar: true,
     followRedirect: true
 })
 
-function loadStartPage(config, cookie) {
-    log.debug("loading start page");
-    request({
-            "uri": config.start_url,
+
+
+/*
+ * The method load up the default page and return the modem information
+ * @param config - The configuration Object storing the URL, etc
+ * @param cookiejar - The cookie jar to store the cookie
+ * @param callback - returns err and the modem details.
+ */
+
+function loadStartPage(config, model, cookie, callback) {
+    log.debug("URI: %s", (config.protocol + "://" + config.router_address +
+        config.landingPage));
+    try {
+        request({
+            "uri": config.protocol + "://" + config.router_address +
+                config.landingPage,
             "jar": cookie
         }, function(err, response, body) {
-            // Hand the HTML response off to Cheerio and assign that to
-            //  a local $ variable to provide familiar jQuery syntax.
-            log.debug("Obtained response. Error? %s", err);
             if (err && response.statusCode !== 200) {
                 log.error('Unable to get Data from Source.');
+                callback(err);
             } else {
-                var $ = cheerio.load(body);
-                var dataSet = $("table.nav * table.std[summary]");
-                var modemInfoDataSet = dataSet.find("td");
-                var modem = {};
-                for (var i = 0; i < $(modemInfoDataSet).length; i++) {
-                    var node = $(modemInfoDataSet)[i];
-                    if ($(node).attr('headers') != null) {
-                        modem[$(node).attr('headers')] = $(node).text()
-                            .trim());
-                }
-
+                log.debug("Success: $s");
+                model.parseLandingPage(body, callback);
             }
-
-
-            // console.log("----------------");
-            //console.log(cookie);
-        }
-    });
+        });
+    } catch (e) {
+        callback(e);
+    }
+    return;
 };
 
-function performLogin(config, cookie) {
+/*
+ * The method Perform Login
+ * @param config - The configuration Object storing the URL, etc
+ * @param cookiejar - The cookie jar to store the cookie
+ * @param callback - returns err and the modem details.
+ */
+
+function login(config, model, cookie, callback) {
+    log.debug("Login Request URI %s", (config.protocol + "://" + config.router_address +
+        config.login_action));
     request.post({
-            "uri": config.login_action,
+            "uri": config.protocol + "://" + config.router_address +
+                config.login_action,
             "jar": cookie,
             "form": {
-                "username_login": config.login.username,
-                "password_login": config.login.password
+                "username_login": config.username,
+                "password_login": config.password
             }
         },
         function(err, response, body) {
-            // console.log("----------------");
-            // console.log(err);
-            // console.log("----------------");
-            log.info("Perform Login: " + response.statusCode);
-            // console.log(body);
-            // console.log("----------------");
             if (err && response.statusCode !== 200) {
-                log.error('Unable to get Data from Source.');
+                log.error('Unable to get Data from Source. %s', err);
+                callback(err);
             } else if (response.statusCode === 302) {
-                log.info("Doing Redirect: %s", response.headers.location);
+                log.info("Being redirect: %s", response.headers.location);
+                log.info("Cookie : %s", cookie)
                 request({
-                    "uri": config.gatewayStatus,
-                    "jar": cookie
-                }, function(error, res, b) {
-                    console.log("Redirect Status %s ", res.statusCode);
-                    if (error && res.statusCode !== 200) {
-                        log.error(
-                            'In the redirect Unable to get Data from Source.'
-                        );
-                    } else {
-                        var $ = cheerio.load(b);
-                        var dataSet = $(
-                            "table.dataTable * table.nav"
-                        );
-
-                        var gatewayInfo = $(dataSet[0]).find(
-                            "[summary]").children("*");
-                        var ipV4Info = $(dataSet[1]).find(
-                            "[summary]").children("*");
-
-                        console.log($(gatewayInfo).find('td').not(
-                            'script').length);
-
-                        for (var i = 0; i < $(gatewayInfo).find(
-                                'td').length; i++) {
-                            var node = $(gatewayInfo).find('td')
-                                .not('script')[
-                                    i];
-                            console.log("--------------");
-                            console
-                                .log("Header :: " + $(node).attr(
-                                    'headers'));
-
-                            console.log($(node).text());
-                            console
-                                .log("--------------");
-                        }
-
-
-                    }
-                });
+                    uri: response.headers.location
+                }, function(err, response, body) {
+                    model.checkLogin(body, callback);
+                })
             } else {
-                // supposedlly the redirect should work
-                // However the redirect does not load
-                // We code the above if else to hand the
-                // redirect
+                log.info("Cookie : %s", cookie)
+                model.checkLogin(body, callback);
             }
         });
 }
 
-function getLanInfo(config, cookie) {
-
-
+function lanStatus(config, model, cookie, callback) {
+    log.debug("URI: %s", (config.protocol + "://" + config.router_address +
+        config.lanStatus));
+    try {
+        request({
+            "uri": config.protocol + "://" + config.router_address +
+                config.lanStatus,
+            "jar": cookie
+        }, function(err, response, body) {
+            if (err && response.statusCode !== 200) {
+                log.error(
+                    'Unable to get Data from Source.'
+                );
+                callback(err);
+            } else {
+                log.trace("responseBody:", body);
+                model.parseLANStatus(body, callback);
+            }
+        });
+    } catch (e) {
+        callback(e);
+    }
+    return;
 }
-loadStartPage(config, j);
-//performLogin(config, j);
+
+function wlanStatus(config, model, cookie, callback) {
+    log.debug("URI: %s", (config.protocol + "://" + config.router_address +
+        config.wlanStatus));
+    try {
+        request({
+            "uri": config.protocol + "://" + config.router_address +
+                config.wlanStatus,
+            "jar": cookie
+        }, function(err, response, body) {
+            log.debug("Obtained response. Error? %s",
+                err);
+            if (err && response.statusCode !== 200) {
+                log.error(
+                    'Unable to get Data from Source.'
+                );
+                callback(err);
+            } else {
+                model.parseWLANStatus(body, callback);
+            }
+        });
+    } catch (e) {
+        callback(e);
+    }
+    return;
+}
+
+function wanStatus(config, model, cookie, callback) {
+    log.debug("URI: %s", (config.protocol + "://" + config.router_address +
+        config.wanStatus));
+    try {
+        request({
+            "uri": config.protocol + "://" + config.router_address +
+                config.wanStatus,
+            "jar": cookie
+        }, function(err, response, body) {
+            log.debug("Obtained response. Error? %s",
+                err);
+            if (err && response.statusCode !== 200) {
+                log.error(
+                    'Unable to get Data from Source.'
+                );
+                callback(err);
+            } else {
+                model.parseWANStatus(body, callback);
+            }
+        });
+    } catch (e) {
+        callback(e);
+    }
+    return;
+}
+
+
+
+//Start Checking
+log.info("Start Time %s", new Date());
+var unitArray = config.check;
+for (var i in unitArray) {
+    log.info("Checking Router. Model: %s@%s", unitArray[i].model,
+        unitArray[i].router_address);
+    var config = unitArray[i];
+    var router = null;
+    try {
+        for (var j in modelCatalog) {
+
+            if (modelCatalog[j].model == config.model) {
+                router = require("./routers/EPC3825");
+                for (var k in modelCatalog[j]) {
+                    config[k] = modelCatalog[j][k];
+                }
+                log.debug("Checking on Router %s", router ==
+                    null ? "Absent" :
+                    "Present");
+                break;
+            }
+        }
+        if (router == null) throw "ERR1: Router not supported";
+
+        log.info("Configured Data %s", JSON.stringify(config));
+
+        async.series([
+            function(callback) {
+                log.debug("In Async %s", JSON.stringify(
+                    config));
+                loadStartPage(config, router, cookie,
+                    callback);
+            },
+            function(callback) {
+                login(config, router, cookie, callback);
+            },
+            function(callback) {
+                lanStatus(config, router, cookie,
+                    callback);
+            },
+            function(callback) {
+                wlanStatus(config, router, cookie,
+                    callback);
+            },
+            function(callback) {
+                wanStatus(config, router, cookie,
+                    callback);
+            },
+        ], function(err, results) {
+            if (err) {
+                log.error("Error Processing %s", err);
+            } else {
+                log.info("%j", results);
+            }
+
+        });
+
+    } catch (error) {
+        log.error(error);
+    }
+}

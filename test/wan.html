@@ -1,0 +1,291 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+<head>
+<title>Gateway Status</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<LINK REL="stylesheet" TYPE="text/css" id="menu" HREF="menu.css">
+<LINK REL="stylesheet" TYPE="text/css" id="webframe" HREF="webframe.css">
+<script language="javascript" type="text/javascript" src="lang.js"></script>
+<script language="javascript" type="text/javascript" src="menu.js"></script>
+<script language="javascript" type="text/javascript" src="header.js"></script>
+<script language="javascript" type="text/javascript" src="active.js"></script>
+<script language="javascript" type="text/javascript" src="linux.js"></script>
+<script language="javascript" type="text/javascript">
+//strHtml='<title>'+vt_title+'</title>';
+//dw(strHtml);
+strHtml='<LINK REL="stylesheet" TYPE="text/css" HREF="'+vcss_type+'">';
+dw(strHtml);
+
+function init()
+{
+	// For Multi-language - special case
+	var timerpl=document.getElementById("currentTime").cells[1].innerHTML;
+	document.getElementById("currentTime").cells[1].innerHTML=translateTime(timerpl);
+	RefreshScrn(180000);
+       FocusActiveSubtab();		
+}
+
+</script>
+</head>
+
+<body class="BodyStyle" onLoad="init()">
+<div class="BackgroundStyle">
+<img width="100%" src="pageBackground.jpg" alt="" />
+</div>
+
+<form name="Status" method="GET" action="">
+<div align="center">
+
+<table class="showMenuTable">
+<script language="javascript" type="text/javascript">
+showHead('Cisco EPC3825 EuroDocsis 3.0 Data Gateway','EPC3825','@fw_version#',vstatus,' ');
+</script>
+
+<script language="javascript" type="text/javascript">
+showMenu(vstatus,vstatus1,'32895',Array('11','247','7','63','15','43','23','0'));
+</script>
+</table>
+
+<table class="Top">
+	<tr>
+		<td colspan="2" class="Top1"></td>
+		<td colspan="2" class="Top2"></td>
+	</tr>
+</table>
+
+<!-- Data Table -->
+<table class="dataTable">
+	<tr>
+		<td>
+			<table class="nav">
+				<tr>
+					<td class="bwhead">
+						<script language="javascript" type="text/javascript">dw(vt_gwinfo);</script>
+					</td>
+					<td class="bwhead1">&nbsp;</td>
+					<td class="nav1">&nbsp;</td>
+				</tr>
+				<tr height="3px">
+					<td class="Item1"></td>
+					<td class="Item2"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">
+						<table class="std" summary="">
+ 
+							<tr>
+								<td width="165" nowrap id="FirmwareVersion">
+									<script language="javascript" type="text/javascript">dw(vt_fw_ver);</script>
+								</td>
+								<td headers="FirmwareVersion" class="stdbold" nowrap>
+									epc3825-v302r125574-140729r-TRU
+								</td>
+							</tr>
+ 
+							<tr>
+								<td id="MACAddress" width="165" nowrap>
+									<script language="javascript" type="text/javascript">dw(vb_macaddr);</script>
+								</td>
+								<td headers="MACAddress" class="stdbold" nowrap>
+									a4:a2:4a:5f:1f:c7
+								</td>
+							</tr>
+							<tr id="currentTime">
+								<td id="Current_Time" width="165" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_crtime);</script>
+								</td>
+								<td headers="Current_Time" class="stdbold" nowrap>
+									2015+4+3+6+13+26+17
+								</td>
+							</tr>
+							<tr>
+								<td id="RouterMode" width="165" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_gateway_routermode);</script>
+								</td>
+								<td headers="RouterMode" class="stdbold" nowrap>
+								       <script language="javascript" type="text/javascript">dw( vt_gateway_ipv4mode );</script>
+								       &nbsp
+								       
+								</td>
+							</tr>
+						</table>
+						<br/>
+					</td>
+				</tr>
+			</table>
+
+			<table style="  " class="nav">
+				<tr>
+					<td class="bwhead">
+						<script language="javascript" type="text/javascript">dw(vt_netconn);</script>
+					</td>
+					<td class="bwhead1">&nbsp;</td>
+					<td class="nav1">&nbsp;</td>
+				</tr>
+				<tr height="3px">
+					<td class="Item1"></td>
+					<td class="Item2"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">
+						<table class="std" summary="">
+							<tr><td id="InternetIPAddress"><script language="javascript" type="text/javascript">dw(vb_ipaddr);</script></td><td headers="InternetIPAddress"><b>171.101.112.228</b></td></tr>
+<tr><td id="SubnetMask" width="165" nowrap><script language="javascript" type="text/javascript">dw(vb_mask);</script></td><td headers="SubnetMask"><b>255.255.254.0</b></td></tr>
+<tr><td id="DefaultGateway" width="165" nowrap><script language="javascript" type="text/javascript">dw(vb_gateway);</script></td><td headers="DefaultGateway"><b>171.101.112.1</b></td></tr>
+<tr><td id="DNSIPv4_1" width="165" nowrap><script language="javascript" type="text/javascript">dw(vz_dns1);</script></td><td headers="DNSIPv4_1"><b>203.144.206.49</b></td></tr>
+<tr><td id="DNSIPv4_2" width="165" nowrap><script language="javascript" type="text/javascript">dw(vz_dns2);</script></td><td headers="DNSIPv4_2"><b>203.144.206.29</b></td></tr>
+<tr><td id="DNSIPv4_3" width="165" nowrap><script language="javascript" type="text/javascript">dw(vz_dns3);</script></td><td headers="DNSIPv4_3"><b>0.0.0.0</b></td></tr>
+
+						</table>
+						<br/>
+					</td>
+				</tr>
+			</table>
+			<table style=" display:none " class="nav">
+				<tr>
+					<td class="bwhead">
+						<script language="javascript" type="text/javascript">dw(vt_IPv6_netconn);</script>
+					</td>
+					<td class="bwhead1">&nbsp;</td>
+					<td class="nav1">&nbsp;</td>
+				</tr>
+				<tr height="3px">
+					<td class="Item1"></td>
+					<td class="Item2"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">
+						<table class="std" summary="">
+							<tr> 
+								<td id="GlobalIPv6Address" width="165" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_gateway_global_ipv6_address);</script>
+								</TD>
+								<td headers="GlobalIPv6Address" class="stdbold" nowrap>
+									::
+								</TD>
+							</TR>
+							<tr> 
+								<td id="Link-LocalIPv6Address" width="165" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_gateway_linklocal_ipv6_address);</script>
+								</TD>
+								<td headers="Link-LocalIPv6Address" class="stdbold" nowrap>
+									::
+								</TD>
+							</TR>
+							<tr> 
+								<td id="IPv6Gateway" width="165" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_gateway_ipv6_gateway);</script>
+								</TD>
+								<td headers="IPv6Gateway" class="stdbold" nowrap>
+									
+								</TD>
+							</TR>
+							<tr> 
+								<td id="DNSIPv6_1" width="165" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_gateway_dns_ipv6_1);</script>
+								</TD>
+								<td headers="DNSIPv6_1" class="stdbold" nowrap>
+									::
+								</TD>
+							</TR>
+							<tr> 
+								<td id="DNSIPv6_2" width="165" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_gateway_dns_ipv6_2);</script>
+								</TD>
+								<td headers="DNSIPv6_2" class="stdbold" nowrap>
+									::
+								</TD>
+							</TR>
+							<tr> 
+								<td id="DNSIPv6_3" width="165" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_gateway_dns_ipv6_3);</script>
+								</TD>
+								<td headers="DNSIPv6_3" class="stdbold" nowrap>
+									::
+								</TD>
+							</TR>
+						</table>
+						<br/>
+					</td>
+				</tr>
+			</table>
+			<table style=" display:none " class="nav">
+				<tr>
+					<td class="bwhead">
+						<script language="javascript" type="text/javascript">dw(vt_gateway_dslite_config);</script>
+					</td>
+					<td class="bwhead1">&nbsp;</td>
+					<td class="nav1">&nbsp;</td>
+				</tr>
+				<tr height="3px">
+					<td class="Item1"></td>
+					<td class="Item2"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">
+						<table class="std" summary="">
+							<tr> 
+								<td width="165" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_gateway_aftr_address);</script>
+								</TD>
+								<td class="stdbold" nowrap>
+									::
+								</TD>
+							</TR>
+							<tr> 
+								<td width="165" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_gateway_aftr_domain);</script>
+								</TD>
+								<td class="stdbold" nowrap>
+									
+								</TD>
+							</TR>
+						</table>
+						<br/>
+					</td>
+				</tr>
+			</table>
+		</td>
+
+		<td class="help">
+			<table>
+				<tr>
+					<td>
+						&nbsp;&nbsp;<SPAN><A href="help/h_Gateway.htm" class="submenu" target="_blank">
+						<script language="javascript" type="text/javascript">dw(vhelp);</script></A></SPAN>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<table class="bottom">
+	<tr>
+		<td class="Footer1">&nbsp;</td>
+		<td class="Footer2">
+			<script language="javascript" type="text/javascript">showRefresh("Status.asp");</script>&nbsp; &nbsp;
+		</td>
+		<td class="Footer3">&nbsp;</td>
+	</tr>
+</table>
+
+</div>
+</form>
+</body>
+</html>
+ 

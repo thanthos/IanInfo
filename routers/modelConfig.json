@@ -1,0 +1,21 @@
+[{
+	"brand": "CISCO",
+	"model": "EPC3825",
+	"landingPage": "/Docsis_system.asp",
+	"wanStatus": "/Status.asp",
+	"lanStatus": "/LocalNetwork.asp",
+	"wlanStatus": "/WNetwork.asp",
+	"login_action": "/goform/Docsis_system",
+
+
+	"dhcpStatus": "/DHCPClientTable.asp",
+	"arapStatus": "/ARARPTable.asp"
+}, {
+	"brand": "Securifi",
+	"model": "Almond+",
+	"landingPage": "/somepage",
+	"wanStatus": "/status",
+	"lanStatus": "/LocalNetwork.asp",
+	"wlanStatus": "/WNetwork.asp",
+	"login_action": "/goform/Docsis_system"
+}]

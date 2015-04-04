@@ -1,0 +1,11 @@
+{
+    "default_address": "192.168.1.1",
+    "check": [{
+        "router_address": "192.168.1.1",
+        "protocol": "http",
+        "model": "EPC3825",
+        "username": "username",
+        "password": "password"
+    }]
+
+}

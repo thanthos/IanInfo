@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+<head>
+<title>Local Network Status</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<LINK REL="stylesheet" TYPE="text/css" id="menu" HREF="menu.css">
+<LINK REL="stylesheet" TYPE="text/css" id="webframe" HREF="webframe.css">
+<script language="javascript" type="text/javascript" src="menu.js"></script>
+<script language="javascript" type="text/javascript" src="header.js"></script>
+<script language="javascript" type="text/javascript" src="lang.js"></script>
+<script language="javascript" type="text/javascript" src="active.js"></script>
+<script language="javascript" type="text/javascript" src="linux.js"></script>
+<script language="javascript" type="text/javascript">
+//strHtml='<title>'+vt_lansts+'</title>';
+//dw(strHtml);
+strHtml='<LINK REL="stylesheet" TYPE="text/css" HREF="'+vcss_type+'">';
+dw(strHtml);
+
+function init()
+{
+    dataToVisible(document.forms[0]);
+
+    var section_UserAccessWebPage_95=2;
+    if(section_UserAccessWebPage_95 == 1)
+    {
+        SetDisabledByOBJ(document);
+    }
+    // ; // 0: No Access, 1: Read Only, 2: Read Write
+
+    var cf = document.forms[0];
+    
+    if (cf.eRouterIPV6.value=="1") 
+    {
+	    document.getElementById("tr_dhcptb").style.display="none";	
+		
+    }
+	
+    FocusActiveSubtab();			
+}
+</script>
+</head>
+
+<body class="BodyStyle" onLoad="init();">
+<div class="BackgroundStyle">
+<img width="100%" src="pageBackground.jpg" alt="" />
+</div>
+
+<form name="localnetwork" method="POST" action="">
+<div align="center">
+<table class="showMenuTable">
+<script language="javascript" type="text/javascript">
+showHead('Cisco EPC3825 EuroDocsis 3.0 Data Gateway','EPC3825','@fw_version#',vstatus,' ');
+</script>
+
+<script language="javascript" type="text/javascript">
+showMenu(vstatus,vlan,'32895',Array('11','247','7','63','15','43','23','0'));
+</script>
+</table>
+
+<table class="Top">
+	<tr>
+		<td colspan="2" class="Top1"></td>
+		<td colspan="2" class="Top2"></td>
+	</tr>
+</table>
+
+			<!-- Data Table -->
+<table class="dataTable">
+	<tr>
+		<td>
+			<table class="nav">
+				<tr>
+					<td class="bwhead">
+						<script language="javascript" type="text/javascript">dw(vlan1);</script>
+					</td>
+					<td class="bwhead1">&nbsp;</td>
+					<td class="nav1">&nbsp;</td>
+				</tr>
+				<tr height="3px">
+					<td class="Item1"></td>
+					<td class="Item2"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">
+						<table class="std" summary="">
+							<tr>
+								<td width="140" nowrap id="MACAddress">
+									<script language="javascript" type="text/javascript">dw(vb_macaddr);</script>
+								</TD>
+								<td headers="MACAddress" class="stdbold" nowrap>
+									a4:a2:4a:5f:1f:c9
+								</TD>
+							</TR>
+							<tr style="   " >
+								<td id="InternetIPAddress" width="140" nowrap>
+									<script language="javascript" type="text/javascript">dw(vb_ipaddr);</script>
+								</TD>
+								<td headers="InternetIPAddress" class="stdbold" nowrap>
+									192.168.1.1 / 24
+								</TD>
+							</TR>
+							<tr style="   " >
+								<td id="SubnetMask" width="140" nowrap>
+									<script language="javascript" type="text/javascript">dw(vb_mask);</script>
+								</TD>
+								<td headers="SubnetMask" class="stdbold" nowrap>
+									255.255.255.0
+								</TD>
+							</TR>
+						</table>
+					</td>
+				</tr>
+				<tr style="   " >
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">&nbsp;</td>
+				</tr>
+
+				<tr style="   " >
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">
+						<table class="std" summary="">
+							<tr> 
+								<td id="DHCPServer" width="140" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_dhcp);</script>
+								</TD>
+								<td headers="DHCPServer" class="stdbold" nowrap>
+									<script language="javascript" type="text/javascript">dw(venabled);</script> 
+								</TD>
+							</TR>
+							<tr> 
+								<td id="StartingIPAddress" width="140" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_startip);</script>
+								</TD>
+								<td headers="StartingIPAddress" class="stdbold" nowrap>
+									192.168.1.33
+								</TD> 
+							</TR>
+							<tr> 
+								<td id="EndIPAddress" width="140" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_endip);</script>
+								</TD>
+								<td headers="EndIPAddress" class="stdbold" nowrap>
+									192.168.1.64
+								</TD>
+							</TR>
+						</table>
+					</td>
+				</tr>
+				<tr style="   " >
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">&nbsp;</td>
+				</tr>
+
+				<tr style=" display:none " >
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">
+						<table class="std" summary="">
+							<tr> 
+								<td width="140" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_localnet_lan_ipv6_prefix);</script>
+								</TD>
+								<td class="stdbold" nowrap>
+									::
+								</TD>
+							</TR>
+						</table>
+					</td>
+				</tr>
+
+				<tr style=" display:none " >
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">
+						<table class="std" summary="">
+							<tr> 
+								<td id="DNSLocalProxy1" width="140" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_localnet_dns_local_proxy1);</script>
+								</TD>
+								<td headers="DNSLocalProxy1" class="stdbold" nowrap>
+									192.168.1.1
+								</TD>
+							</TR>
+							<tr> 
+								<td id="DNSLocalProxy2" width="140" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_localnet_dns_local_proxy2);</script>
+								</TD>
+								<td headers="DNSLocalProxy2" class="stdbold" nowrap>
+									192.168.1.2
+								</TD> 
+							</TR>
+							<tr> 
+								<td id="DNSLocalProxy3" width="140" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_localnet_dns_local_proxy3);</script>
+								</TD>
+								<td headers="DNSLocalProxy3" class="stdbold" nowrap>
+									192.168.1.3
+								</TD>
+							</TR>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">&nbsp;</td>
+				</tr>
+
+				<tr>
+                                   <input type="hidden" name="eRouterIPV6" value="0">				
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">
+						<table class="std">
+							<tr> 
+								<td nowrap>
+									<script language="javascript" type="text/javascript">showButton("dhcp_table", vt_dhcptb, "", "openDataSubWin('DHCPClientTable.asp',bigsub)");</script>
+								</td>
+								<td nowrap id="tr_dhcptb">
+									<script language="javascript" type="text/javascript">showButton("dhcp_table", vt_arptb, "", "openDataSubWin('ARARPTable.asp',bigsub)");</script>
+								</td>
+								<td  style=" display:none "  nowrap>
+									<script language="javascript" type="text/javascript">showButton("slaac_table", vt_slaactb, "", "openDataSubWin('SLAACTable.asp',bigsub)");</script>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">&nbsp;</td>
+				</tr>
+			</table>
+		</td>
+
+		<td class="help">
+			<table>
+				<tr>
+					<td>&nbsp;
+						<a href="help/h_LocalNetwork.htm" class="submenu" target="_blank">
+  							<script language="javascript" type="text/javascript">dw(vhelp);</script>
+						</a>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<table class="bottom">
+	<tr>
+		<td class="Footer1">&nbsp;</td>
+		<td class="Footer2">
+			<script language="javascript" type="text/javascript">showRefresh("LocalNetwork.asp");</script>&nbsp; &nbsp;
+		</td>
+		<td class="Footer3">&nbsp;</td>
+	</tr>
+</table>
+
+</div>
+</form>
+</body>
+</html>

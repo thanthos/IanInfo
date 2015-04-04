@@ -1,0 +1,582 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+<head>
+<title>About</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<LINK REL="stylesheet" TYPE="text/css" id="menu" HREF="menu.css">
+<LINK REL="stylesheet" TYPE="text/css" id="webframe" HREF="webframe.css">
+<script language="javascript" type="text/javascript" src="menu.js"></script>
+<script language="javascript" type="text/javascript" src="header.js"></script>
+<script language="javascript" type="text/javascript" src="lang.js"></script>
+<script language="javascript" type="text/javascript" src="active.js"></script>
+<script language="javascript" type="text/javascript" src="linux.js"></script>
+
+<script language="javascript" type="text/javascript">
+//var strHtml='<title>'+vt_docsystem+'</title>';
+//dw(strHtml);
+var strHtml='<LINK REL="stylesheet" TYPE="text/css" HREF="'+vcss_type+'">';
+dw(strHtml);
+
+function LanguageChange()
+{   
+    var cf = document.forms[0]; 
+    cf.Language_Submit.value = 1;
+    cf.submit();
+}
+
+function init()
+{
+    dataToVisible(document.forms[0]);
+<!-- 2 -->
+    // For Multi-language - special case
+    var timerpl=document.getElementById("bldfwtime").cells[1].innerHTML;
+    document.getElementById("bldfwtime").cells[1].innerHTML=translateTime(timerpl);
+<!--  -->
+    // Login issue of Web display
+    var islogin = '0';
+
+    var section_UserAccessWebPage_77=2;
+    // ; // 0: No Access, 1: Read Only, 2: Read Write
+    if(section_UserAccessWebPage_77 == 0)
+    {
+        HiddenHRLine(document.getElementById("i_HR1"));
+    }
+    var section_UserAccessWebPage_78=2;
+    // ; // 0: No Access, 1: Read Only, 2: Read Write
+    if(section_UserAccessWebPage_78 == 0)
+    {
+        HiddenHRLine(document.getElementById("i_HR2"));
+    }
+    var section_UserAccessWebPage_79=2;
+    // ; // 0: No Access, 1: Read Only, 2: Read Write
+    if(section_UserAccessWebPage_79 == 0)
+    {
+        HiddenHRLine(document.getElementById("i_HR3"));
+    }
+    var section_UserAccessWebPage_80=2;
+    // ; // 0: No Access, 1: Read Only, 2: Read Write
+    if(section_UserAccessWebPage_80 == 0)
+    {
+        if(section_UserAccessWebPage_79 == 0)
+        {
+            if(section_UserAccessWebPage_78 == 0)
+            {
+                if(section_UserAccessWebPage_77 == 0)
+                {
+                    if(islogin == '0')
+                        HiddenHRLine(document.getElementById("i_HR0"));
+                }
+                else
+                    HiddenHRLine(document.getElementById("i_HR1"));
+            }
+            else
+                HiddenHRLine(document.getElementById("i_HR2"));
+        }
+        else
+            HiddenHRLine(document.getElementById("i_HR3"));
+    }
+
+    if(islogin == '1')
+    {
+        RefreshScrn(180000);
+        HiddenHRLine(document.getElementById("i_HR0"));		
+    }
+    else
+    {
+        document.getElementById("refreshButton").innerHTML="";			
+    }
+
+    if('0' == '1')
+    {
+        document.getElementById("incorrect_credentials").cells[0].innerHTML="<font color=\"red\">"+msg_invalild_usr_pass+"</font>";
+    }
+
+    if('1' == '0')
+    {
+         HiddenHRLine(document.getElementById("wire_less"));
+    }
+    FocusActiveSubtab();	
+}
+
+</script>
+</head>
+
+<body class="BodyStyle" onLoad="init();">
+<div class="BackgroundStyle">
+<img width="100%" src="pageBackground.jpg" alt="" />
+</div>
+
+<form method="POST" action="/goform/Docsis_system" name="Docsis_system">
+<div align="center">
+
+<table border="0" cellpadding="0" cellspacing="0" width="840">
+<script language="javascript" type="text/javascript">
+showHead('Cisco EPC3825 EuroDocsis 3.0 Data Gateway','EPC3825','@fw_version#',vstatus,' ');
+</script>
+
+<script language="javascript" type="text/javascript">
+showMenu(vstatus,vcable3,'64',Array('0','0','0','0','0','0','16','0'));
+</script>
+</table>
+
+<table class="Top">
+    <tr>
+        <td colspan="2" class="Top1"></td>
+        <td colspan="2" class="Top2"></td>
+    </tr>
+</table>
+
+<!-- Data Table -->
+<table class="dataTable">
+    <tr>
+        <td>
+            <!-- Login Section Start -->
+ 
+            <table class="nav">
+                <tr>
+                    <td class="bwhead">
+                        <script language="javascript" type="text/javascript">dw(vlogin);</script>
+                    </td>
+                    <td class="bwhead1">&nbsp;</td>
+                    <td class="nav1">&nbsp;</td>
+                </tr>
+                <tr height="3px">
+                    <td class="Item1"></td>
+                    <td class="Item2"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="Item1"> </td>
+                    <td class="Item2"> </td>
+                    <td class="Item3">
+                        <table class="std" WIDTH="206" summary="">
+                            <tr>
+                                <td nowrap>
+                                    <label for="focusUsername"><script language="javascript" type="text/javascript">dw(vusername);</script></label>
+                                </TD>
+                                <td nowrap>
+                                    <input type="text" name="username_login" id="focusUsername" value="" />
+                                </TD>
+                            </TR>
+                            <tr>
+                                <td nowrap>
+                                    <label for="password_login"><script language="javascript" type="text/javascript">dw(vpasswd);</script></label>
+                                </TD>
+                                <td nowrap>
+                                    <input type="password" name="password_login" id="password_login" value="" />
+                                </TD>
+                            </TR>
+                            <tr>
+                                <td nowrap width="118">
+                                    <script language="javascript" type="text/javascript">dw(v_Language_Selection);</script>
+                                </TD>
+                                <td nowrap>
+                                    <select name="LanguageSelect" title="Select Language" onchange="LanguageChange()">
+                                        <option label="en" value="en" selected><script language="javascript">dw(v_lang_en);</script></option>
+
+                                    </select>
+                                    <input type="hidden" name="Language_Submit" value="0" />
+                                </TD>
+                            </TR>
+                            <tr>
+                                <td colspan="2" align="center">
+                                    <script language="javascript" type="text/javascript">showSubmit("login", vlogin, "");</script>
+                                </td>
+                            </tr>
+                            <tr id="incorrect_credentials"> 
+                                <td colspan="2">
+                                    <br/>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+ 
+            <!-- Login Section End -->
+            <table class="nav">
+                <tr id="i_HR0">
+                    <td class="Item1">&nbsp;</td>
+                    <td class="Item2"></td>
+                    <td><hr class="std"></td>
+                </tr>
+            </table>
+<!-- 2 -->
+            <!-- Modem Information Start -->
+            <table class="nav">
+                <tr>
+                    <td class="bwhead">
+                        <script language="javascript" type="text/javascript">dw(vt_docsystem);</script>
+                    </td>
+                    <td class="bwhead1">&nbsp;</td>
+                    <td class="nav1">&nbsp;</td>
+                </tr>
+                <tr height="3px">
+                    <td class="Item1"></td>
+                    <td class="Item2"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="Item1"> </td>
+                    <td class="Item2"> </td>
+                    <td class="Item3">
+                        <table class="std" summary="">
+                            <tr>
+                                <td id="Model" width="165" nowrap>
+                                    <script language="javascript" type="text/javascript">dw(vmodel);</script>
+                                </TD>
+                                <td headers="Model" class="stdbold" nowrap>
+                                    Cisco EPC3825
+                                </TD>
+                            </TR>
+                            <tr>
+                                <td id="Vendor" width="165" nowrap>
+                                    <script language="javascript" type="text/javascript">dw(vvendor);</script>
+                                </TD>
+                                <td headers="Vendor" class="stdbold" nowrap>
+                                    Cisco
+                                </TD>
+                            </TR>
+                            <tr>
+                                <td id="HardwareRevision" width="165" nowrap>
+                                    <script language="javascript" type="text/javascript">dw(vhwrev);</script>
+                                </TD>
+                                <td headers="HardwareRevision" class="stdbold" nowrap>
+                                    1.0
+                                </TD>
+                            </TR>
+                             
+                            <tr>
+                                <td id="MACAddress" width="165" nowrap>
+                                    <script language="javascript" type="text/javascript">dw(vmac1);</script>
+                                </TD>
+                                <td headers="MACAddress" class="stdbold" nowrap>
+                                    a4:a2:4a:5f:1f:c7
+                                </TD>
+                            </TR>
+                            <tr>
+                                <td id="BootloaderRevision" width="165" nowrap>
+                                    <script language="javascript" type="text/javascript">dw(vbootloader);</script>
+                                </TD>
+                                <td headers="BootloaderRevision" class="stdbold" nowrap>
+                                    2.3.0_R3
+                                </TD>
+                            </TR>
+                            <tr>
+                                <td id="CurrentSoftwareRevision" width="165" nowrap>
+                                    <script language="javascript" type="text/javascript">dw(vcurswrev);</script>
+                                </TD>
+                                <td headers="CurrentSoftwareRevision" class="stdbold" nowrap>
+                                    epc3825-v302r125574-140729r-TRU
+                                </TD>
+                            </TR>
+                            <tr>
+                                <td id="FirmwareName" width="165" nowrap>
+                                    <script language="javascript" type="text/javascript">dw(vfwname);</script>
+                                </TD>
+                                <td headers="FirmwareName" class="stdbold" nowrap>
+                                    epc3825-v302r125574-140729r-TRU.bin
+                                </TD>
+                            </TR>
+                            <tr id="bldfwtime"> 
+                                <td id="FirmwareBuildTime" width="165" nowrap>
+                                    <script language="javascript" type="text/javascript">dw(vfwbldtime);</script>
+                                </TD>
+                                <td headers="FirmwareBuildTime" class="stdbold" nowrap>
+                                    2014+7+29+0+15+33+7
+                                </TD>
+                            </TR>
+                            <tr>
+                                <td id="CableModemStatus" width="165" nowrap>
+                                    <script language="javascript" type="text/javascript">dw(vcmstatus);</script>
+                                </TD>
+                                <td headers="CableModemStatus" class="stdbold" nowrap>
+                                    <script language="javascript" type="text/javascript">dw(vcm_operational);</script>
+                                </TD>
+                            </TR>
+                            <tr><td id="vt_wnet_colon" width="165" nowrap><script language="javascript" type="text/javascript">dw(vt_wnet_colon);</script></TD><td headers="vt_wnet_colon" class="stdbold" nowrap>Enable</td></tr>
+                             
+                        </table>
+                        <br/>
+                    </td>
+                </tr>
+            </table>
+            <!-- Modem Information End -->
+<!--  -->
+            <table class="nav">
+                <tr id="i_HR1">
+                    <td class="Item1">&nbsp;</td>
+                    <td class="Item2"></td>
+                    <td><hr class="std"></td>
+                </tr>
+            </table>
+<!-- 2 -->
+            <!-- Docsis Information Start -->
+            <table class="nav">
+                <tr>
+                    <td class="bwhead">
+                        <script language="javascript" type="text/javascript">dw(vcm_state);</script>
+                    </td>
+                    <td class="bwhead1">&nbsp;</td>
+                    <td class="nav1">&nbsp;</td>
+                </tr>
+                <tr height="3px">
+                    <td class="Item1"></td>
+                    <td class="Item2"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="Item1"> </td>
+                    <td class="Item2"> </td>
+                    <td class="Item3">
+                        <table class="std" summary="">
+                            <tr>
+                                <td id="DOCSISDownstreamScanning" width="165">
+                                    <script language="javascript" type="text/javascript">dw(vcm_state_ds);</script>
+                                </td>
+                                <td headers="DOCSISDownstreamScanning">
+                                    <b><script language="javascript" type="text/javascript">dw(msg_st_completed);</script></b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="DOCSISRanging">
+                                    <script language="javascript" type="text/javascript">dw(vcm_state_us);</script>
+                                </td>
+                                <td headers="DOCSISRanging">
+                                    <b><script language="javascript" type="text/javascript">dw(msg_st_completed);</script></b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="DOCSISDHCP">
+                                    <script language="javascript" type="text/javascript">dw(vcm_state_dhcp);</script>
+                                </td>
+                                <td headers="DOCSISDHCP">
+                                    <b><script language="javascript" type="text/javascript">dw(msg_st_completed);</script></b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="DOCSISTFTP">
+                                    <script language="javascript" type="text/javascript">dw(vcm_state_tftp);</script>
+                                </td>
+                                <td headers="DOCSISTFTP">
+                                    <b><script language="javascript" type="text/javascript">dw(msg_st_completed);</script></b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="DOCSISDataRegComplete">
+                                    <script language="javascript" type="text/javascript">dw(vcm_state_reg);</script>
+                                </td>
+                                <td headers="DOCSISDataRegComplete">
+                                    <b><script language="javascript" type="text/javascript">dw(msg_st_completed);</script></b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td id="DOCSISPrivacy">
+                                    <script language="javascript" type="text/javascript">dw(vcm_state_privacy);</script>
+                                </td>
+                                <td headers="DOCSISPrivacy">
+                                    <b><script language="javascript" type="text/javascript">dw(venabled);</script></b>
+                                </td>
+                            </tr>
+                        </table>
+                        <br/>
+                    </td>
+                </tr>
+            </table>
+            <!-- Docsis Information End -->
+<!--  -->
+            <table class="nav">
+                <tr id="i_HR2">
+                    <td class="Item1">&nbsp;</td>
+                    <td class="Item2"></td>
+                    <td><hr class="std"></td>
+                </tr>
+            </table>
+<!-- 2 -->
+            <!-- Downstream Channel Information Start -->
+            <table class="nav">
+                <tr>
+                    <td class="bwhead">
+                        <script language="javascript" type="text/javascript">dw(vdsch);</script>
+                    </td>
+                    <td class="bwhead1">&nbsp;</td>
+                    <td class="nav1">&nbsp;</td>
+                </tr>
+                <tr height="3px">
+                    <td class="Item1"></td>
+                    <td class="Item2"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="Item1"> </td>
+                    <td class="Item2"> </td>
+                    <td class="Item3">
+                        <table class="std" summary="Downstream Channels">
+                            <tr> 
+<td id="empty" width="70" nowrap>&nbsp;</td>
+<td id="ch_pwr" scope="col" width="100" class="stdbold" nowrap><script language="javascript" type="text/javascript">dw(vch_pwr);</script></td>
+<td id="ch_snr" scope="col" width="100" class="stdbold" nowrap><script language="javascript" type="text/javascript">dw(vdsch_snr);</script></TD>
+<td id="ch_Corrected" scope="col" width="80" class="stdbold" nowrap><script language="javascript" type="text/javascript">dw(vdsch_Corrected);</script></TD>
+<td id="ch_UnCorrected" scope="col" width="80" class="stdbold" nowrap><script language="javascript" type="text/javascript">dw(vdsch_UnCorrected);</script></TD>
+</tr>
+<tr>
+<td id="channel_1" width="70" nowrap><script language="javascript" type="text/javascript">dw(vs_channel);</script> 1<script language="javascript" type="text/javascript">dw(vcolon);</script></td>
+<td headers="channel_1 ch_pwr" scope="row" width="100" class="stdbold" nowrap>  3.3 <script language="javascript" type="text/javascript">dw(vdbmv);</script></td>
+<td headers="channel_1 ch_snr"  width="100" class="stdbold" nowrap>42.5 <script language="javascript" type="text/javascript">dw(vdb);</script></td>
+<td headers="channel_1 ch_Corrected" width="80" class="stdbold" nowrap>324 </td>
+<td headers="channel_1 ch_UnCorrected" width="80" class="stdbold" nowrap>12 </td>
+</tr>
+<tr>
+<td id="channel_2" width="70" nowrap><script language="javascript" type="text/javascript">dw(vs_channel);</script> 2<script language="javascript" type="text/javascript">dw(vcolon);</script></td>
+<td headers="channel_2 ch_pwr" scope="row" width="100" class="stdbold" nowrap>  3.4 <script language="javascript" type="text/javascript">dw(vdbmv);</script></td>
+<td headers="channel_2 ch_snr"  width="100" class="stdbold" nowrap>42.7 <script language="javascript" type="text/javascript">dw(vdb);</script></td>
+<td headers="channel_2 ch_Corrected" width="80" class="stdbold" nowrap>1088 </td>
+<td headers="channel_2 ch_UnCorrected" width="80" class="stdbold" nowrap>72 </td>
+</tr>
+<tr>
+<td id="channel_3" width="70" nowrap><script language="javascript" type="text/javascript">dw(vs_channel);</script> 3<script language="javascript" type="text/javascript">dw(vcolon);</script></td>
+<td headers="channel_3 ch_pwr" scope="row" width="100" class="stdbold" nowrap>  3.2 <script language="javascript" type="text/javascript">dw(vdbmv);</script></td>
+<td headers="channel_3 ch_snr"  width="100" class="stdbold" nowrap>42.5 <script language="javascript" type="text/javascript">dw(vdb);</script></td>
+<td headers="channel_3 ch_Corrected" width="80" class="stdbold" nowrap>1521 </td>
+<td headers="channel_3 ch_UnCorrected" width="80" class="stdbold" nowrap>247 </td>
+</tr>
+<tr>
+<td id="channel_4" width="70" nowrap><script language="javascript" type="text/javascript">dw(vs_channel);</script> 4<script language="javascript" type="text/javascript">dw(vcolon);</script></td>
+<td headers="channel_4 ch_pwr" scope="row" width="100" class="stdbold" nowrap>  3.0 <script language="javascript" type="text/javascript">dw(vdbmv);</script></td>
+<td headers="channel_4 ch_snr"  width="100" class="stdbold" nowrap>42.5 <script language="javascript" type="text/javascript">dw(vdb);</script></td>
+<td headers="channel_4 ch_Corrected" width="80" class="stdbold" nowrap>2148 </td>
+<td headers="channel_4 ch_UnCorrected" width="80" class="stdbold" nowrap>296 </td>
+</tr>
+<tr>
+<td id="channel_5" width="70" nowrap><script language="javascript" type="text/javascript">dw(vs_channel);</script> 5<script language="javascript" type="text/javascript">dw(vcolon);</script></td>
+<td headers="channel_5 ch_pwr" scope="row" width="100" class="stdbold" nowrap>  2.7 <script language="javascript" type="text/javascript">dw(vdbmv);</script></td>
+<td headers="channel_5 ch_snr"  width="100" class="stdbold" nowrap>42.0 <script language="javascript" type="text/javascript">dw(vdb);</script></td>
+<td headers="channel_5 ch_Corrected" width="80" class="stdbold" nowrap>1436 </td>
+<td headers="channel_5 ch_UnCorrected" width="80" class="stdbold" nowrap>43 </td>
+</tr>
+<tr>
+<td id="channel_6" width="70" nowrap><script language="javascript" type="text/javascript">dw(vs_channel);</script> 6<script language="javascript" type="text/javascript">dw(vcolon);</script></td>
+<td headers="channel_6 ch_pwr" scope="row" width="100" class="stdbold" nowrap>  3.3 <script language="javascript" type="text/javascript">dw(vdbmv);</script></td>
+<td headers="channel_6 ch_snr"  width="100" class="stdbold" nowrap>42.5 <script language="javascript" type="text/javascript">dw(vdb);</script></td>
+<td headers="channel_6 ch_Corrected" width="80" class="stdbold" nowrap>784 </td>
+<td headers="channel_6 ch_UnCorrected" width="80" class="stdbold" nowrap>12 </td>
+</tr>
+<tr>
+<td id="channel_7" width="70" nowrap><script language="javascript" type="text/javascript">dw(vs_channel);</script> 7<script language="javascript" type="text/javascript">dw(vcolon);</script></td>
+<td headers="channel_7 ch_pwr" scope="row" width="100" class="stdbold" nowrap>  3.5 <script language="javascript" type="text/javascript">dw(vdbmv);</script></td>
+<td headers="channel_7 ch_snr"  width="100" class="stdbold" nowrap>42.5 <script language="javascript" type="text/javascript">dw(vdb);</script></td>
+<td headers="channel_7 ch_Corrected" width="80" class="stdbold" nowrap>104 </td>
+<td headers="channel_7 ch_UnCorrected" width="80" class="stdbold" nowrap>0 </td>
+</tr>
+<tr>
+<td id="channel_8" width="70" nowrap><script language="javascript" type="text/javascript">dw(vs_channel);</script> 8<script language="javascript" type="text/javascript">dw(vcolon);</script></td>
+<td headers="channel_8 ch_pwr" scope="row" width="100" class="stdbold" nowrap>  3.3 <script language="javascript" type="text/javascript">dw(vdbmv);</script></td>
+<td headers="channel_8 ch_snr"  width="100" class="stdbold" nowrap>42.5 <script language="javascript" type="text/javascript">dw(vdb);</script></td>
+<td headers="channel_8 ch_Corrected" width="80" class="stdbold" nowrap>28 </td>
+<td headers="channel_8 ch_UnCorrected" width="80" class="stdbold" nowrap>0 </td>
+</tr>
+
+                        </table>
+                        <br/>
+                    </td>
+                </tr>
+            </table>
+            <!-- Downstream Channel Information End -->
+<!--  -->
+            <table class="nav">
+                <tr id="i_HR3">
+                    <td class="Item1">&nbsp;</td>
+                    <td class="Item2"></td>
+                    <td><hr class="std"></td>
+                </tr>
+            </table>
+<!-- 2 -->
+            <!-- Upstream Channel Information Start -->
+            <table class="nav">
+                <tr>
+                    <td class="bwhead">
+                        <script language="javascript" type="text/javascript">dw(vusch);</script>
+                    </td>
+                    <td class="bwhead1">&nbsp;</td>
+                    <td class="nav1">&nbsp;</td>
+                </tr>
+                <tr height="3px">
+                    <td class="Item1"></td>
+                    <td class="Item2"></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="Item1"> </td>
+                    <td class="Item2"> </td>
+                    <td class="Item3">
+                        <table class="std" summary="Upstream Channels">
+                            <tr> 
+<td id="up_empty" width="140" nowrap>&nbsp; </td>
+<td id="up_pwr" scope="col" width="140" class="stdbold" nowrap><script language="javascript" type="text/javascript">dw(vch_pwr);</script></td>
+</tr>
+<tr> 
+<td id="up_channel_1" width="140" nowrap><script language="javascript" type="text/javascript">dw(vs_channel);</script> 1<script language="javascript" type="text/javascript">dw(vcolon);</script></td>
+<td headers="up_channel_1 up_pwr" scope="row" class="stdbold" nowrap>54.0 <script language="javascript" type="text/javascript">dw(vdbmv);</script></td>
+</tr> 
+<tr> 
+<td id="up_channel_2" width="140" nowrap><script language="javascript" type="text/javascript">dw(vs_channel);</script> 2<script language="javascript" type="text/javascript">dw(vcolon);</script></td>
+<td headers="up_channel_2 up_pwr" scope="row" class="stdbold" nowrap>53.9 <script language="javascript" type="text/javascript">dw(vdbmv);</script></td>
+</tr> 
+<tr> 
+<td  id="up_channel_3" width="140" nowrap><script language="javascript" type="text/javascript">dw(vs_channel);</script> 3<script language="javascript" type="text/javascript">dw(vcolon);</script></td>
+<td headers="up_channel_3 up_pwr"  scope="row" class="stdbold" nowrap> 0.0 <script language="javascript" type="text/javascript">dw(vdbmv);</script></td>
+</tr> 
+<tr> 
+<td  id="up_channel_4" width="140" nowrap><script language="javascript" type="text/javascript">dw(vs_channel);</script> 4<script language="javascript" type="text/javascript">dw(vcolon);</script></td>
+<td headers="up_channel_4 up_pwr"  scope="row" class="stdbold" nowrap> 0.0 <script language="javascript" type="text/javascript">dw(vdbmv);</script></td>
+</tr> 
+
+                        </table>
+                        <br/>
+                    </td>
+                </tr>
+            </table>
+            <!-- Upstream Channel Information End -->
+<!--  -->
+        </td>
+        <td class="help">
+            <!-- removed help link
+            <table>
+                <tr>
+                    <td>&nbsp;
+                        <a href="http://cisco.com" class="submenu" target="_blank">
+                        <script language="javascript" type="text/javascript">dw(vhelp);</script></a>
+                    </td>
+                </tr>
+            </table>
+            -->
+        </td>
+    </tr>
+</table>
+
+<table class="bottom">
+    <tr>
+        <td class="Footer1">&nbsp;</td>
+        <td class="Footer2" id="refreshButton">
+            <script language="javascript" type="text/javascript">showRefresh("Docsis_system.asp");</script>&nbsp; &nbsp;
+        </td>
+        <td class="Footer3">&nbsp;</td>
+    </tr>
+</table>
+
+<table border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td align="center">
+            <font size="1" color="white">
+                <script language="javascript" type="text/javascript">dw(vcopyright);</script>
+            </font>
+        </td>
+    </tr>
+</table>
+
+</div>
+</form>
+</body>
+</html>

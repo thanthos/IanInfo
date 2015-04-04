@@ -1,0 +1,1146 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+<head>
+<title>Quick Setup</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<LINK REL="stylesheet" TYPE="text/css" id="menu" HREF="menu.css">
+<LINK REL="stylesheet" TYPE="text/css" id="webframe" HREF="webframe.css">
+<script language="javascript" type="text/javascript" src="lang.js"></script>
+<script language="javascript" type="text/javascript" src="menu.js"></script>
+<script language="javascript" type="text/javascript" src="header.js"></script>
+<script language="javascript" type="text/javascript" src="active.js"></script>
+<script language="javascript" type="text/javascript" src="linux.js"></script>
+<script language="javascript" type="text/javascript">
+//strHtml='<title>'+vwqsetting+'</title>';
+//dw(strHtml);
+strHtml='<LINK REL="stylesheet" TYPE="text/css" HREF="'+vcss_type+'">';
+dw(strHtml);
+
+var ifWifiWizardCardExit= "1";
+var dot11OperMode= "3";
+var powerDownMode= "???";
+
+<!-- 2 -->
+<!-- 2 -->
+var secMethods = ["wep","psk","psk2","psk2_mixed","wpa_radius","wpa2_radius","enterprise_mixed","disabled"];
+var secMethod = "";
+var WPS_Enable = false;
+var keylength = 26;
+var keylength1= 13;
+var hexkey = true;
+var wep64keyhidden = "**********";
+var wep128keyhidden = "**************************";
+var last_UnhiddenPresharedKey = 0;
+var last_UnhiddenSharedKey = 0;
+var last_UnhiddenPassPhrase = 0;
+var RgDot11MbssControl= 1; 
+<!--  -->
+<!--  -->
+
+
+function QSetup_checkSecurityMode()
+{
+    var cf = document.forms[0];
+    var wpsEnable = "manual";
+    
+    if (wpsEnable == "wps")
+    {
+        cf.security_mode.options[0] = new Option(vpsk2, "psk2");
+        cf.security_mode.options[1] = new Option(vpsk2_mixed, "psk2_mixed");
+        cf.security_mode.options[2] = new Option(vdisable, "disabled");
+        
+        secMethods = ["psk2","psk2_mixed","disabled"];
+		WPS_Enable = true;
+    }
+    else
+    {
+        cf.security_mode.options[0] = new Option(vwep, "wep");
+        cf.security_mode.options[1] = new Option(vpsk, "psk");
+        cf.security_mode.options[2] = new Option(vpsk2, "psk2");
+        cf.security_mode.options[3] = new Option(vpsk2_mixed, "psk2_mixed");
+        cf.security_mode.options[4] = new Option(vwpa_radius, "wpa_radius");
+        cf.security_mode.options[5] = new Option(vwpa2_radius, "wpa2_radius");
+        cf.security_mode.options[6] = new Option(venterprise_mixed, "enterprise_mixed"); 
+        cf.security_mode.options[7] = new Option(vdisable, "disabled");
+		WPS_Enable = false;
+    }
+}
+
+function init()
+{
+    var cf = document.forms[0];
+    dataToVisible(cf);
+    FocusActiveSubtab();				
+    if(dot11OperMode==1)
+    {
+        div_WL_UICtrl=document.getElementById("id_WL_UICtrl");
+        div_WL_UICtrl.innerHTML="<FONT face=Arial>"+msg_WL_IF_disabled+"</FONT>";
+    }
+    else
+    {
+        QSetup_checkSecurityMode();
+        dataToVisible(cf);
+    }
+    if(!ifWifiWizardCardExit ||dot11OperMode==0 ||dot11OperMode==1 ||powerDownMode==1)
+    {
+        document.getElementById("WifiWizard_basicinfo").style.display="none";
+        if(dot11OperMode==1)
+            show_hide("wlanDIV",1);
+        else
+            show_hide("wlanDIV",0);
+<!-- 2 -->
+<!-- 2 -->
+        show_hide("wpaEncryptionDIV",0);
+        show_hide("wpaPreKeyDIV",0);
+        show_hide("radiusDIV",0);
+        show_hide("lineDIV",0);
+        show_hide("wepDIV",0);
+<!--  -->
+<!--  -->
+        setControls_ifWifiWizardCardExit();
+        return;
+    }
+<!-- 2 -->
+<!-- 2 -->
+    setDivs();
+    setKeyType(true); // remove the dummy asterisk ... original is "setKeyType(false);"
+<!--  -->
+<!--  -->
+
+    var wifi_enable2p4G = cf.h_setup_wifi_enable.value; 
+    if(wifi_enable2p4G == "enable")
+    {
+        cf.setup_wifi_enable[0].checked=true;
+    }
+    else if(wifi_enable2p4G == "disable")
+    {        
+        cf.setup_wifi_enable[1].checked=true;
+    }
+    
+    dataToVisible(cf);
+    //enableDisable();
+    opermode_RW_control(dot11OperMode);
+
+    var section_UserAccessWebPage_95=2;
+    if(section_UserAccessWebPage_95 == 1)
+    {
+        setDisabled(1, cf.Password, cf.PasswordReEnter);
+        setDisabled(1, cf.setup_wifi_enable[0], cf.setup_wifi_enable[1]);
+    }
+    // ; // 0: No Access, 1: Read Only, 2: Read Write
+
+    if(section_UserAccessWebPage_95 == 0)
+    {
+        HiddenHRLine(document.getElementById("i_HR1"));
+    }
+
+    if (!RgDot11MbssControl)
+    {
+        SetDisabledByOBJ(document.getElementById("WifiWizard_basicinfo"));
+        SetDisabledByOBJ(document.getElementById("i_wirelessSecurity"));
+    }
+
+    last_UnhiddenPresharedKey = cf.UnhiddenPresharedKey.checked;
+    last_UnhiddenSharedKey = cf.UnhiddenSharedKey.checked;
+    last_UnhiddenPassPhrase = cf.UnhiddenPassPhrase.checked;
+
+	if(ifWifiWizardCardExit == "0"){
+        document.getElementById("WifiWizard_basicinfo").style.display="none";
+	    show_hide("wepDIV", false);
+	    show_hide("wpaEncryptionDIV", false);
+	    show_hide("wpaPreKeyDIV", false);
+	    show_hide("radiusDIV", false);
+	    show_hide("lineDIV", false);
+    }
+
+    dataToVisible(cf);
+    enableDisable();
+}
+
+<!-- 2 -->
+<!-- 2 -->
+function setKeyType(isKeep)
+{
+	var cf = document.forms[0];
+	{
+        keylength = (cf.keysize.selectedIndex==1)? 26 : 10;  
+    	cf.wep_key1.size = cf.wep_key2.size = cf.wep_key3.size = cf.wep_key4.size = keylength;
+        cf.wep_key1.maxLength = cf.wep_key2.maxLength = cf.wep_key3.maxLength = cf.wep_key4.maxLength = keylength;
+		
+		if(!isKeep)
+		{
+            if(cf.keysize.selectedIndex==0)
+            {
+                cf.wep_key1.value = wep64keyhidden;   
+                cf.wep_key2.value = wep64keyhidden;
+                cf.wep_key3.value = wep64keyhidden;
+                cf.wep_key4.value = wep64keyhidden;
+            }
+            else if(cf.keysize.selectedIndex==1)
+            {
+                cf.wep_key1.value = wep128keyhidden;
+                cf.wep_key2.value = wep128keyhidden;
+                cf.wep_key3.value = wep128keyhidden;
+                cf.wep_key4.value = wep128keyhidden;
+            }
+		    //cf.passphrase.value = "";
+		}
+	}
+	setControls();
+}
+
+//var lastkeypressed;
+var keyTooBig = false;
+var mustbeHEX = false;
+var keysize = 63;
+var lastObj;
+
+var textSelected = false;
+var wpapak64asterisk = "****************************************************************";
+
+function keyCheck(fobj)
+{	
+    var cf = document.forms[0];
+  lastObj = fobj;
+  if(textSelected == true)
+  	keyTooBig = false;
+  else
+    {
+        if( (fobj.name=="wpa_psk")
+          ||(fobj.name=="wpa2_psk")
+          ||(fobj.name=="wpa3_psk"))
+        {
+		    if(fobj.value.length==64 && isHex(fobj.value))
+		        keyTooBig = false;
+		    else if(fobj.value.length > keysize)
+		        keyTooBig = true;
+
+		    if(fobj.value.length==64 && fobj.value==wpapak64asterisk)
+		        keyTooBig = false;
+        }
+        else
+  keyTooBig = (fobj.value.length >= keysize ) ? true : false;
+    }
+//  mustbeHEX = true;
+}
+
+function keyGen()
+{
+	var min_size = 1;  // passphrase
+    var cf = document.forms[0];
+	{
+		if(cf.passphrase.value.length < min_size)
+		{	
+			alert(msg_wep_pass);
+			return false;
+		}
+	}
+
+
+	dataToHidden(cf);
+	cf.isGenerate.value = 1;
+	cf.submit();
+}
+<!--  -->
+<!--  -->
+
+function enableDisable()
+{
+    var cf = document.forms[0];
+
+    var section_UserAccessWebPage_95=2;
+    if(section_UserAccessWebPage_95 == 1)
+    {
+        setDisabled(1, cf.setup_wifi_enable[0], cf.setup_wifi_enable[1]);
+    }
+
+    var dflag = cf.setup_wifi_enable[1].checked;
+    
+    // disable/enable tags CGI will handle if post.
+<!-- 2 -->
+<!-- 2 -->
+    setDisabled(dflag,cf.ssid);
+<!--  -->
+<!--  -->
+<!-- 2 -->
+<!-- 2 -->
+    setDisabled(dflag,cf.h_security_mode,cf.c4_radius_ip_,cf.h_wpa_enc,cf.h_tx_key,cf.wep_key1,cf.wep_key2,cf.wep_key3,cf.wep_key4,cf.wpa_psk_key,cf.UnhiddenPresharedKey,cf.radius_port,cf.radius_psk,cf.UnhiddenSharedKey,cf.passphrase,cf.UnhiddenPassPhrase,cf.isGenerate,cf.WepKeysIsGenerated);
+    // disable/enable html items just for grey display
+    setDisabled(dflag,cf.security_mode,cf.keysize,cf.keygen,cf.tx_key,cf.wpa_enc,cf.radius_ip_1,cf.radius_ip_2,cf.radius_ip_3,cf.radius_ip_4);
+<!--  -->
+<!--  -->
+    if (dflag!=true)
+    {
+        setControls();
+    }
+
+    var section_UserAccessWebPage_63=2;
+    var section_UserAccessWebPage_50=2;
+    if(section_UserAccessWebPage_50 == 1 || section_UserAccessWebPage_63 == 1)
+    {
+        setDisabled(1, cf.ssid);
+    }
+    // ; // 0: No Access, 1: Read Only, 2: Read Write
+    // ; // 0: No Access, 1: Read Only, 2: Read Write
+
+    var section_UserAccessWebPage_67=2;
+    var section_UserAccessWebPage_54=2;
+    if(section_UserAccessWebPage_54 == 1 || section_UserAccessWebPage_67 == 1)
+    {
+        setDisabled(1, cf.security_mode, cf.wpa_enc, cf.wpa_psk_key, cf.UnhiddenPresharedKey, cf.keysize, cf.passphrase, cf.UnhiddenPassPhrase, cf.keygen);
+        setDisabled(1, cf.radius_ip_1, cf.radius_ip_2, cf.radius_ip_3, cf.radius_ip_4, cf.radius_port, cf.radius_psk, cf.UnhiddenSharedKey);
+        setDisabled(1, cf.wep_key1, cf.wep_key2, cf.wep_key3, cf.wep_key4, cf.tx_key);
+    }
+    // ; // 0: No Access, 1: Read Only, 2: Read Write
+    // ; // 0: No Access, 1: Read Only, 2: Read Write
+
+    // ; // 0: No Access, 1: Read Only, 2: Read Write
+}
+
+<!-- 2 -->
+function setControls_ifWifiWizardCardExit()
+{
+	var cf = document.forms[0];
+	{
+		cf.h_setup_wifi_enable.disabled = true;
+<!-- 2 -->
+<!-- 2 -->
+		cf.ssid.disabled = true;
+<!--  -->
+<!--  -->
+<!-- 2 -->
+<!-- 2 -->
+		cf.h_security_mode.disabled = true;
+		cf.c4_radius_ip_.disabled = true;
+		cf.h_wpa_enc.disabled = true;
+		cf.h_tx_key.disabled = true;
+		cf.h_keysize.disabled = true;
+		cf.wep_key1.disabled = true;
+		cf.wep_key2.disabled = true;
+		cf.wep_key3.disabled = true;
+		cf.wep_key4.disabled = true;
+		cf.wpa_psk_key.disabled = true;
+		cf.UnhiddenPresharedKey.disabled = true;
+		cf.radius_port.disabled = true;
+		cf.radius_psk.disabled = true;
+		cf.UnhiddenSharedKey.disabled = true;
+		cf.passphrase.disabled = true;
+		cf.UnhiddenPassPhrase.disabled = true;
+		cf.isGenerate.disabled=true;
+		cf.WepKeysIsGenerated.disabled=true;
+<!--  -->
+<!--  -->
+	}
+}
+<!--  -->
+
+function setControls()
+{
+    var cf = document.forms[0];
+<!-- 2 -->
+<!-- 2 -->
+    {
+        cf.h_wpa_enc.disabled = true;
+        cf.wpa_psk_key.disabled = true;
+		cf.UnhiddenPresharedKey.disabled = true;
+            
+        cf.c4_radius_ip_.disabled = true;
+        cf.radius_port.disabled = true;     
+        cf.radius_psk.disabled = true;
+		cf.UnhiddenSharedKey.disabled = true;
+
+        cf.passphrase.disabled = true;
+		cf.UnhiddenPassPhrase.disabled = true;
+        cf.wep_key1.disabled = true;
+        cf.wep_key2.disabled = true;
+        cf.wep_key3.disabled = true;
+        cf.wep_key4.disabled = true;
+        cf.h_tx_key.disabled = true;
+        cf.h_keysize.disabled = true; 
+        cf.isGenerate.disabled = true;
+        cf.WepKeysIsGenerated.disabled=true;
+
+        if(WPS_Enable == false)
+	    {
+            if(cf.security_mode.selectedIndex == 0 )  //|| cf.security_mode.selectedIndex == 7) //wep or radius
+            {
+                cf.passphrase.disabled = false;
+			    cf.UnhiddenPassPhrase.disabled = false;
+                cf.wep_key1.disabled = false;
+                cf.wep_key2.disabled = false;
+                cf.wep_key3.disabled = false;
+                cf.wep_key4.disabled = false;
+                cf.h_tx_key.disabled = false;
+                cf.h_keysize.disabled = false; 
+                cf.isGenerate.disabled = false;
+                cf.WepKeysIsGenerated.disabled=false;
+            }
+
+            if(cf.security_mode.selectedIndex == 1 || cf.security_mode.selectedIndex == 2 || cf.security_mode.selectedIndex == 3)
+            {
+                cf.h_wpa_enc.disabled = false;
+                cf.wpa_psk_key.disabled = false;
+			    cf.UnhiddenPresharedKey.disabled = false;
+            }
+    
+            if(cf.security_mode.selectedIndex == 4 || cf.security_mode.selectedIndex == 5 || cf.security_mode.selectedIndex == 6)
+            {
+                cf.h_wpa_enc.disabled = false;
+                cf.c4_radius_ip_.disabled = false;
+                cf.radius_port.disabled = false;     
+                cf.radius_psk.disabled = false;
+			    cf.UnhiddenSharedKey.disabled = false;
+            }
+/*        
+            if(cf.security_mode.selectedIndex == 7) //radius
+            {
+                cf.c4_radius_ip_.disabled = false;
+                cf.radius_port.disabled = false;     
+                cf.radius_psk.disabled = false;
+            } 
+*/
+        }
+		else
+		{
+            if(cf.security_mode.selectedIndex == 0 || cf.security_mode.selectedIndex == 1 || cf.security_mode.selectedIndex == 2)
+            {
+                cf.h_wpa_enc.disabled = false;
+                cf.wpa_psk_key.disabled = false;
+			    cf.UnhiddenPresharedKey.disabled = false;
+            }
+		}
+    }
+<!--  -->
+<!--  -->
+}
+<!-- 2 -->
+<!-- 2 -->
+function valid_radio_ip(ip_1, ip_2, ip_3, ip_4)
+{
+    var wan_ip = "@ws_wan_ip#";
+	var lan_ip = "@ws_lan_ip#";
+	
+	var radio_ip = parseInt(ip_1)+"."+parseInt(ip_2)+"."+parseInt(ip_3)+"."+parseInt(ip_4);
+	if(radio_ip == lan_ip)
+	{
+	    return msg_lan_ip;
+	}
+	else if(radio_ip == wan_ip)
+	{
+	    return msg_wan_ip;
+	}
+	return "";
+}
+
+function isHex(str) {
+    var i;
+    for(i = 0; i<str.length; i++) {
+                var c = str.substring(i, i+1);
+
+        if(("0" <= c && c <= "9") || ("a" <= c && c <= "f") || ("A" <= c && c <= "F")) {
+            continue;
+        }
+        return false;
+    }
+    return true;
+}
+function setDivs()
+{
+ 	var cf = document.forms[0];
+	secMethod = secMethods[cf.security_mode.selectedIndex];
+
+	if (secMethod == "disabled")
+	{
+	    show_hide("wepDIV", false);
+	    show_hide("wpaEncryptionDIV", false);
+	    show_hide("wpaPreKeyDIV", false);
+	    show_hide("radiusDIV", false);
+	    show_hide("lineDIV", false);
+	}
+	if (secMethod == "wep")
+	{
+    	    show_hide("wepDIV", true);
+	    show_hide("wpaEncryptionDIV", false);
+	    show_hide("wpaPreKeyDIV", false);
+	    show_hide("radiusDIV", false);
+	    show_hide("lineDIV", false);
+	}
+       if ((secMethod == "psk")||(secMethod == "psk2")||(secMethod == "psk2_mixed"))
+       {
+	    show_hide("wepDIV", false);
+	    show_hide("wpaEncryptionDIV", true);
+	    show_hide("wpaPreKeyDIV", true);
+	    show_hide("radiusDIV", false);
+	    show_hide("lineDIV", false);
+       }
+       if ((secMethod == "wpa_radius")||(secMethod == "wpa2_radius")||(secMethod == "enterprise_mixed")) 
+       {
+	    show_hide("wepDIV", false);
+	    show_hide("wpaEncryptionDIV", true);
+	    show_hide("wpaPreKeyDIV", false);
+	    show_hide("radiusDIV", true);
+	    show_hide("lineDIV", false);
+       }
+/*
+	   if (secMethod == "radius")
+       {
+	    show_hide("wepDIV", true);
+	    show_hide("wpaEncryptionDIV", false);
+	    show_hide("wpaPreKeyDIV", false);
+	    show_hide("radiusDIV", true);
+	    show_hide("lineDIV", true);
+       }
+*/	
+	setControls();
+    checkEncryption(); 
+}
+<!--  -->
+<!--  -->
+
+function PromptMsgToTurnOffWDS()
+{
+	if(confirm(vm_confirm_turnoff_wds))
+		return true;
+	else 
+        return false;
+}
+
+function checkData()
+{
+	var cf = document.forms[0];
+        var msg = "";  
+	var msgUseId="";
+	var blankFlag = false;  
+	var sizeOK = false; 
+	var i; 
+	var secIndex;
+	var secMethod;
+	var key_index;
+    var wifiWDSSetting = cf.qs_wds_setting.value;
+
+<!-- 2 -->
+	if(cf.UserId.value=="Superuser"||cf.UserId.value=="Operator")
+	{
+            msgUseId=msg_useId;
+            alert(msgUseId);
+            return false;
+	}
+
+
+	if(cf.Password.value != cf.PasswordReEnter.value)
+	{
+            alert(msg_nomatch_pwd);
+            cf.Password.value = "";
+            cf.PasswordReEnter.value = "";
+            return false;
+	}
+<!--  -->
+
+       if (ifWifiWizardCardExit && dot11OperMode!=0 && dot11OperMode!=1)
+	{
+<!-- 2 -->
+           if (cf.setup_wifi_enable[0].checked)
+           {
+                if (isBlank(cf.ssid.value)) 
+                {
+                    alert(invalid_ssid + blank_error);
+                    return false;					
+                }		
+                else
+                {
+                    if(!checkCharacter(cf.ssid.value))
+                    {
+                        alert(invalid_ssid+ characters_error1);
+                        return false;
+                    }
+                }                    					
+<!-- 2 -->
+<!-- 2 -->
+               secIndex = cf.security_mode.selectedIndex;
+               secMethod = secMethods[cf.security_mode.selectedIndex];
+               key_index = cf.tx_key.selectedIndex+1;
+               if(secMethod == "wep" )//|| secMethod == "radius")
+               {
+                    if (isBlank(cf.passphrase.value)) 
+                    {
+                        alert(msg_wep_pass);
+                        return false;					
+                    }		
+                    else
+                    {             
+                       if(!checkCharacter(cf.passphrase.value))
+                       {
+                            alert(invalid_passphrase + characters_error);
+                            return false;
+                       }
+                   }				   
+
+                   for(i = 1 ; i < 5 ; i++)	
+                   {
+                       if(eval("cf.wep_key" + i + ".value.length")>0 || i==key_index)
+                       {
+                           msg = "";
+                           sizeOK = eval("(cf.wep_key" + i + ".value.length == keylength)");
+                           if (!sizeOK)
+                           {
+                               msg = (hexkey) ? addstr(msg_hexkey,i) : msg_asciikey;
+                               alert(msg);
+                               return false;
+                           }
+                           if (hexkey)
+                           {
+                               if(eval("isHex(cf.wep_key" + i + ".value)"))
+                               ;
+                               else 
+                               { 
+                                   var wepAsterisk;
+                                   if (keylength==10)
+                                   {
+                                       wepAsterisk = "**********";
+                                   }
+                                   else if (keylength==26)
+                                   {
+                                       wepAsterisk = "**************************";
+                                   }
+                                   
+                                   if (eval("(cf.wep_key" + i + ".value == wepAsterisk)"))
+                                   {
+                                       //do nothing
+                                   }
+                                   else
+                                   {
+                                       alert(addstr(msg_hexkey,i));
+                                       return false;
+                                   }
+                               }
+                           }
+                       }
+                   }
+                   /*
+                   if (secMethod == "radius")
+                   {
+                       if(badIP(cf.radius_ip_1, cf.radius_ip_2, cf.radius_ip_3, cf.radius_ip_4, 254))
+                       msg+= msg_invalid_ip;
+                       msg+= valid_radio_ip(cf.radius_ip_1.value, cf.radius_ip_2.value, cf.radius_ip_3.value, cf.radius_ip_4.value);
+                       msg+= checkInt(cf.radius_port, msg_radius_port,1,65535,true);
+                       msg+= checkBlank(cf.radius_psk,vsharedkey);
+                   }
+                   */	
+               }
+               else if ((secMethod == "psk")||(secMethod == "psk2")||(secMethod == "psk2_mixed"))
+               {
+                if(wifiWDSSetting=="enable"){
+                    if(PromptMsgToTurnOffWDS() == false){
+                        return false;
+                    }else{    
+                        cf.wl_wds_setting.value="disable";
+                    }
+                }
+                    if(!checkCharacter(cf.wpa_psk_key.value))
+                    {
+                        alert(invalid_wpa_psk + characters_error);
+                        return false;
+                    }
+            
+                   if(cf.wpa_psk_key.value.length < 8 || cf.wpa_psk_key.value.length > 63 )
+                   {
+                       if(cf.wpa_psk_key.value.length==64 && !isHex(cf.wpa_psk_key.value))
+                       {
+                           if (cf.wpa_psk_key.value == wpapak64asterisk)
+                           {
+                               //do nothing
+                           }
+                           else
+                           {
+                               msg+= msg_psk_keysize;
+                           }
+                       }
+                       else if(cf.wpa_psk_key.value.length>64||cf.wpa_psk_key.value.length<8)
+                       {
+                           msg+= msg_psk_keysize;
+                       }
+                   }
+               }
+               else if ((secMethod == "wpa_radius")||(secMethod == "wpa2_radius")||(secMethod == "enterprise_mixed"))
+               {
+                if(wifiWDSSetting=="enable"){
+                    if(PromptMsgToTurnOffWDS() == false){
+                        return false;
+                    }else{    
+                        cf.wl_wds_setting.value="disable";
+                    }
+                }
+			if(!checkCharacter(cf.radius_psk.value))
+			{
+				alert(invalid_radius_psk + characters_error);
+				return false;
+			}
+            
+                   if(badIP(cf.radius_ip_1, cf.radius_ip_2, cf.radius_ip_3, cf.radius_ip_4, 254))
+                       msg+= msg_invalid_ip;
+                   msg+= valid_radio_ip(cf.radius_ip_1.value, cf.radius_ip_2.value, cf.radius_ip_3.value, cf.radius_ip_4.value);
+                   msg+= checkInt(cf.radius_port, msg_radius_port,1,65535,true);		
+                   msg+= checkBlank(cf.radius_psk,vsharedkey);
+               }
+                  
+               if(msg.length > 1)
+               {
+                   alert(msg);
+                   return false;
+               }
+<!--  -->
+<!--  -->
+           }
+<!--  -->
+       }
+       dataToHidden(cf); 
+<!-- 2 -->
+<!-- 2 -->
+       cf.isGenerate.value = 0;
+<!--  -->
+<!--  -->
+       //cf.submit();
+
+       last_UnhiddenPresharedKey = cf.UnhiddenPresharedKey.checked;
+       last_UnhiddenSharedKey = cf.UnhiddenSharedKey.checked;
+       last_UnhiddenPassPhrase = cf.UnhiddenPassPhrase.checked;
+
+       return true;
+}
+
+function func_UnhiddenPresharedKey()
+{
+    var cf = document.forms[0];
+	if(checkData() == false){
+		cf.UnhiddenPresharedKey.checked = last_UnhiddenPresharedKey;
+		return false;
+	}else{
+        cf.submit();
+       return true;
+}
+}
+function func_UnhiddenSharedKey()
+{
+    var cf = document.forms[0];
+	if(checkData() == false){
+		cf.UnhiddenSharedKey.checked = last_UnhiddenSharedKey;
+		return false;
+	}else{
+        cf.submit();
+	    return true;
+	}
+}
+function func_UnhiddenPassPhrase()
+{
+    var cf = document.forms[0];
+	if(checkData() == false){
+		cf.UnhiddenPassPhrase.checked = last_UnhiddenPassPhrase;
+		return false;
+	}else{
+        cf.submit();
+	    return true;
+	}
+}
+
+function checkEncryption()
+{
+    var cf = document.forms[0];
+    var secMethodEpt;
+    cf.wpa_enc.options.length=0; // delete all options
+    secMethodEpt = secMethods[cf.security_mode.selectedIndex];  
+    var tkipEnable = "notkip";
+    if ((secMethodEpt == "psk2")||(secMethodEpt == "wpa2_radius"))
+    {// WPA2-Personal / WPA2-Enterprise only support AES 
+        cf.wpa_enc.options.add(new Option(vaes, "aes"));        
+    }
+    // var secMethods = ["wep","psk","psk2","psk2_mixed","wpa_radius","wpa2_radius","enterprise_mixed","disabled"];
+    else if ((secMethodEpt == "psk")||(secMethodEpt == "psk2_mixed")||(secMethodEpt == "wpa_radius")||(secMethodEpt == "enterprise_mixed"))
+    {
+        if (tkipEnable == "tkip")   
+        {
+            cf.wpa_enc.options.add(new Option(vtkip, "tkip"));
+        }    
+        cf.wpa_enc.options.add(new Option(vaes, "aes"));
+        cf.wpa_enc.options.add(new Option(vaes_tkip, "tkip+aes"));       
+    }
+}
+
+</script>
+</head>
+
+<body class="BodyStyle" onLoad="init()">
+<div class="BackgroundStyle">
+<img width="100%" alt="" src="pageBackground.jpg"/>
+</div>
+
+<form name="Quick_setup" method="POST" action="/goform/Quick_setup">
+<div align="center">
+
+<table class="showMenuTable">
+<script language="javascript" type="text/javascript">
+showHead('Cisco EPC3825 EuroDocsis 3.0 Data Gateway','EPC3825','@fw_version#',vsetup,' ');
+</script>
+
+<script language="javascript" type="text/javascript">
+showMenu(vsetup,vwqsetting,'32895',Array('11','247','7','63','15','43','23','0'));
+</script>
+</table>
+
+<table class="Top">
+	<tr>
+ 		<td colspan="2" class="Top1"></td>
+ 		<td colspan="2" class="Top2"></td>
+	</tr>
+</table>
+
+<table class="dataTable">
+	<tr>
+		<td>
+			<table id="i_changePassword" class="nav">
+				<tr>
+					<td class="bwhead">
+						<script language="javascript" type="text/javascript">dw(vchange_password);</script>
+					</td>
+					<td class="bwhead1">&nbsp;</td>
+					<td class="nav1">&nbsp; </td>
+				</tr>
+				<tr height="3px">
+					<td class="Item1"></td>
+					<td class="Item2"></td>
+					<td></td>
+				</tr>
+<!-- 2 -->
+				<tr>
+					<td class="Item1">&nbsp;</td>
+					<td class="Item2"> </td>
+					<td class="Item3">
+						<table class="std" summary="">
+							<tr>
+								<td id="focusUserName" nowrap>
+									<script language="javascript" type="text/javascript">dw(va_local_access2);</script>
+								</td>
+								<td headers="focusUserName" nowrap>
+									thanthos
+								</td>
+							</tr>
+							<tr>
+								<td id="va_local_access3" nowrap>
+									<label for="password"><script language="javascript" type="text/javascript">dw(va_local_access3);</script></label>
+								</td>
+								<td headers="va_local_access3" nowrap>
+									<input type="password" maxlength="43" size="21" id="password" name="Password" value="" />
+								</td>
+							</tr>
+							<tr>
+								<td id="va_local_access4" nowrap>
+									<label for="PasswordReEnter"><script language="javascript" type="text/javascript">dw(va_local_access4);</script></label>
+								</td>
+								<td headers="va_local_access4" nowrap>
+									<input type="password" maxlength="43" size="21" id="PasswordReEnter" name="PasswordReEnter" value="" />
+									
+								</td>
+							</tr>							
+						</table>
+					</td>
+				</tr>
+<!--  -->
+				<tr id="i_HR1">
+					<td class="Item1">&nbsp;  </td>
+					<td class="Item2"> </td>
+					<td><hr class="std"></td>
+				</tr>
+			</table>
+
+			<table class="nav">
+				<tr id="wlanDIV" style="dispaly:none">
+					<td class="bwhead">
+						<script language="javascript" type="text/javascript">dw(va_wlan);</script>
+					</td>
+					<td class="bwhead1">&nbsp;</td>
+					<td class="nav1">&nbsp;</td>
+				</tr>
+				<tr height="3px">
+					<td class="Item1"></td>
+					<td class="Item2"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="Item1"></td>
+					<td class="Item2"></td>
+					<td class="Item3">
+						<table class="std" id="WifiWizard_basicinfo" style="dispaly:none" summary="">
+<!-- 2 -->
+							<tr>
+							   <td nowrap colspan="2">
+							          <fieldset name="WifiWizard_basicinfo_Wireless_Network" style="margin-left:0em">
+							            <legend style="padding-left:0px;margin:0px;color:black;"> 
+									<script language="javascript" type="text/javascript">dw(vt_wnet_colon);</script>
+								     </legend>
+								     <p style="padding-left:100px;margin:0px">
+									<input type="radio" id="setup_wifi_enable" name="setup_wifi_enable" value="enable" onClick="enableDisable();" />
+									<label for="setup_wifi_enable"><b><script language="javascript" type="text/javascript">dw(venable);</script></b></label>
+									<input type="radio" id="setup_wifi_disable" name="setup_wifi_enable" value="disable" onClick="enableDisable();" />
+									<label for="setup_wifi_disable"><b><script language="javascript" type="text/javascript">dw(vdisable);</script></b></label>
+							             </p>
+							           </fieldset>
+							   </td>
+							</tr>
+<!--  -->
+<!-- 2 -->
+<!-- 2 -->
+							<tr id="i_wirelessSSID" name="i_wirelessSSID">
+								<td id="vssid1_colon" width="110">
+									<label for="ssid"><script language="javascript" type="text/javascript">dw(vssid1_colon);</script></label>
+								</td>
+								<td headers="vssid1_colon" nowrap>
+									<input type="text" maxlength="32" name="ssid" id="ssid" value="true_home2G_fc7" />
+								</td>
+							</tr>
+<!--  -->
+<!--  -->
+<!-- 2 -->
+<!-- 2 -->
+							<tr id="i_securitymode" name="i_securitymode">
+								<td id="vwsecmode" width="110">
+									<script language="javascript" type="text/javascript">dw(vwsecmode);</script>
+								</td>
+								<td headers="vwsecmode" nowrap>
+									<select name="security_mode" title="Select Security Mode" onChange="setDivs();" style="font-family: Arial; font-size: 11px">
+									</select>
+								</td>
+							</tr>
+<!--  -->
+<!--  -->
+						</table>
+					</td>
+				</tr>
+
+				<!-- CASE -->
+				<tr id="i_wirelessSecurity" name="i_wirelessSecurity" summary="">
+					<td class="Item1">&nbsp;</TD>
+					<td class="Item2"> </TD>
+					<td class="Item3">
+						<table border="0" cellpadding="0" cellspacing="0" align="center" width="400">
+<!-- 2 -->
+<!-- 2 -->
+						<!-- wpa encryption -->
+							<tr>
+								<td  nowrap>
+								<div id="wpaEncryptionDIV" style="display:none">
+									<table class="stdx">
+										<tr>
+											<td nowrap width="80">
+												<script language="javascript" type="text/javascript">dw(vencryption);</script>
+											</td>
+											<td nowrap>
+												<select size="1" title="wpa encryption" name="wpa_enc">
+									  			</select>
+						  					</td>
+						  				</tr>
+						  			</table>
+						  		</div>
+						  		</td>
+						  	</tr>
+						<!-- wpa Pre-Shared Key -->
+						  	<tr>
+						  		<td  nowrap>
+						  		<div id="wpaPreKeyDIV" style="display:none">
+						  			<table class="stdx" summary="">
+						  				<tr>
+						  					<td id="vpre_shared_key" nowrap width="80">
+						  						<label for="wpa_psk_key"><script language="javascript" type="text/javascript">dw(vpre_shared_key);</script></label>
+						  					</td>
+						  					<td headers="vpre_shared_key" nowrap>
+						  						<input type="password" class="num" id="wpa_psk_key" name="wpa_psk_key" size="32" maxlength="64" value="267687202" onKeyDown="keyCheck(this)"  onSelect="textSelected=true" />
+						  					</td>
+                                            <td headers="vpre_shared_key">
+                                                <input type="checkbox" id="UnhiddenPresharedKey" name="UnhiddenPresharedKey" value="0x01"  onClick="func_UnhiddenPresharedKey();" > 
+                                            </td> 
+                                            <td headers="vpre_shared_key" nowrap>
+                                                <label for="UnhiddenPresharedKey"><script language="javascript" type="text/javascript"> dw(vunhidden_preshared_key); </script></label>
+                                             </td>
+						  				</tr>
+						  			</table>
+						  		</div>
+						  		</td>
+						  	</tr>
+						<!-- radius -->
+						  	<tr>
+						  		<td nowrap>
+						  		<div id="radiusDIV" style="display:none">
+						  			<table class="stdx" summary="">
+						  				<tr>
+							                        <td id="vradius_server" nowrap colspan="2">
+							                           <fieldset name="radiusDIV_radius_server" style="margin-left:0em">
+							                              <legend style="padding-left:0px;margin:0px;color:black;"> 
+						  						<script language="javascript" type="text/javascript">dw(vradius_server);</script>
+						  					  </legend>
+						  					  <p style="padding-left:73px;margin:0px">
+						  						<input type="text" title="radius ip First Octet" name="radius_ip_1" value="" class="ipnum" maxlength="3" size="3" /> .
+						  						<input type="text" title="radius ip Second Octet" name="radius_ip_2" value="" class="ipnum" maxlength="3" size="3" /> .
+						  						<input type="text" title="radius ip Third Octet" name="radius_ip_3" value="" class="ipnum" maxlength="3" size="3" /> .
+						  						<input type="text" title="radius ip Fourth Octet" name="radius_ip_4" value="" class="ipnum" maxlength="3" size="3" />
+						  					</p>
+						  				   </fieldset>
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<td id="vradius_port_headers" nowrap width="80">
+						  						<label for="radius_port"><script language="javascript" type="text/javascript">dw(vradius_port);</script></label>
+						  					</td>
+						  					<td headers="vradius_port_headers" nowrap >
+						  						<input type="text" class="num" id="radius_port" name="radius_port" size="5" maxlength="5" value="1645" />
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<td id="vsharedkey_headers" nowrap width="80">
+						  						<label for="radius_psk"><script language="javascript" type="text/javascript">dw(vsharedkey);</script></label>
+						  					</td>
+						  					<td headers="vsharedkey_headers" nowrap>
+						  						<input type="password" class="num" id="radius_psk" name="radius_psk" size="32" maxlength="64" value="" onSelect="textSelected=true" />
+						  					</td>
+						  					<td headers="vsharedkey_headers" >
+						  					       <input type="checkbox" id="UnhiddenSharedKey" name="UnhiddenSharedKey" value="0x01"  onClick="func_UnhiddenSharedKey();" > 
+                                            </td> 
+						  					<td headers="vsharedkey_headers"  nowrap>
+						  					       <label for="UnhiddenSharedKey"><script language="javascript" type="text/javascript"> dw(vunhidden_preshared_key); </script></label>
+                                            </td>
+						  				</tr>
+						  			</table>
+						  		</div>
+						  		</td>
+						  	</tr>
+						<!-- line -->
+						  	<tr>
+						  		<td  nowrap>
+						  			<div id="lineDIV" style="display:none"><hr size="1"></div>
+						  		</td>
+						  	</tr>
+						<!-- wep -->
+						  	<tr>
+						  		<td  nowrap>
+						  			<div id="wepDIV" style="display:none">
+						  			<table class="stdx" summary="">
+						  				<tr>
+						  					<td id="wep_vencryption_headers" nowrap width="80">
+						  						<script language="javascript" type="text/javascript">dw(vencryption);</script>
+						  					</td>
+						  					<td headers="wep_vencryption_headers" nowrap>
+						  						<select name="keysize" title="Select encryption" onChange = "setKeyType(true);">
+						  							<option value="64" label="40 / 64-bit (10 hex digits)">
+						  								<script language="javascript" type="text/javascript">dw(vencryption1);</script>
+						  							</option>
+						  							<option value="128" label="104 / 128-bit (26 hex digits)">
+						  								<script language="javascript" type="text/javascript">dw(vencryption2);</script>
+						  							</option>
+						  						</select>
+						  						<input type="hidden" name="h_keysize" value="64" />
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<td id="wep_vpassphrase_headers" width="80" nowrap>
+						  						<label for="passphrase"><script language="javascript" type="text/javascript">dw(vpassphrase);</script></label>
+						  					</td>
+						  					<td headers="wep_vpassphrase_headers" nowrap>
+						  						<input type="hidden" name="isGenerate" value="0" />
+						  						<input type="password" class="num" maxlength="32" size="22" id="passphrase" name="passphrase" value="" onSelect="textSelected=true" />
+                                                <input type="checkbox" id="UnhiddenPassPhrase" name="UnhiddenPassPhrase" value="0x01"  onClick="func_UnhiddenPassPhrase();" >
+                                                <label for="UnhiddenPassPhrase"><script language="javascript" type="text/javascript"> dw(vunhidden_preshared_key); </script></label>
+                                                &nbsp;  &nbsp;
+						  						<script language="javascript" type="text/javascript">showSubmit("keygen", vgenerate, "return keyGen()");</script>
+						  						<input type="hidden" name="WepKeysIsGenerated" value="0" />
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<td id="vkey_1_headers" nowrap>
+						  						<label for="wep_key1"><script language="javascript" type="text/javascript">dw(vkey_1);</script></label>
+						  					</td>
+						  						<td headers="vkey_1_headers" nowrap><input id="wep_key1" name="wep_key1" value="0267687202" class="num" maxlength="26" size="26" >
+						  					</td>
+						  				</tr>
+						  				<tr>
+						  					<td id="vkey_2_headers" nowrap>
+						  						<label for="wep_key2"><script language="javascript" type="text/javascript">dw(vkey_2);</script></label>
+						  					</td>
+						  						<td headers="vkey_2_headers" nowrap><input id="wep_key2" name="wep_key2" value="0267687202" class="num" maxlength="26" size="26" ></td>
+						  				</tr>
+						  				<tr>
+						  					<td id="vkey_3_headers" nowrap>
+						  						<label for="wep_key3"><script language="javascript" type="text/javascript">dw(vkey_3);</script></label>
+						  					</td>
+						  						<td headers="vkey_3_headers" nowrap><input id="wep_key3" name="wep_key3" value="0267687202" class="num" maxlength="26" size="26" ></td>
+						  				</tr>
+						  				<tr>
+						  					<td id="vkey_4_headers" height="18" nowrap>
+						  						<label for="wep_key4"><script language="javascript" type="text/javascript">dw(vkey_4);</script></label>
+						  					</td>
+						  						<td headers="vkey_4_headers" nowrap><input id="wep_key4" name="wep_key4" value="0267687202" class="num" maxlength="26" size="26" ></td>
+						  				</tr>
+						  				<tr>
+						  					<td id="vtx_key_headers" nowrap>
+						  						<script language="javascript" type="text/javascript">dw(vtx_key);</script>
+						  					</td>
+						  					<td headers="vtx_key_headers" nowrap>
+						  						<select size="1" title="Select TX key" name="tx_key">
+						  							<option value="1">1</option>
+						  							<option value="2">2</option>
+						  							<option value="3">3</option>
+						  							<option value="4">4</option>
+						  						</select>
+											</td>
+										</tr>
+									</table>
+									</div>
+								</td>
+							</tr>
+<!--  -->
+<!--  -->
+							<div id="id_WL_UICtrl">&nbsp;</div>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+
+		<td class="help">
+			<table>
+				<tr>
+					<td>
+						&nbsp;<A href="help/h_QuickSetup.htm" class="submenu" target="_blank">
+						<script language="javascript" type="text/javascript">dw(vhelp);</script></a>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+
+<table class="bottom">
+	<tr>
+		<td class="Footer1">&nbsp;</td>
+		<td class="Footer2">
+			<script language="javascript" type="text/javascript">showSave();</script>
+			<script language="javascript" type="text/javascript">showCancel("Quick_setup.asp");</script>&nbsp; &nbsp;
+		</td>
+	  	<td class="Footer3">&nbsp;</td>
+	</tr>
+</table>
+</div>
+
+<input type="hidden" name="h_setup_wifi_enable" value="enable">
+<!-- 2 -->
+<!-- 2 -->
+<input type="hidden" name="h_security_mode" value="wep">
+<input type="hidden" name="h_tx_key" value="1">
+<input type="hidden" name="h_wpa_enc" value="tkip+aes">
+<input type="hidden" name="c4_radius_ip_" value="0.0.0.0">
+<!--  -->
+<!--  -->
+<input type="hidden" name="qs_wds_setting" value="disable" />
+<input type="hidden" name="UserId" value="">
+
+</form>
+</body>
+</html>

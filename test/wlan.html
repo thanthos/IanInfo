@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html lang="en">
+<head>
+<title>Wireless Network Status</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<LINK REL="stylesheet" TYPE="text/css" id="menu" HREF="menu.css">
+<LINK REL="stylesheet" TYPE="text/css" id="webframe" HREF="webframe.css">
+<script language="javascript" type="text/javascript" src="lang.js"></script>
+<script language="javascript" type="text/javascript" src="menu.js"></script>
+<script language="javascript" type="text/javascript" src="header.js"></script>
+<script language="javascript" type="text/javascript" src="active.js"></script>
+<script language="javascript" type="text/javascript" src="linux.js"></script>
+<script language="javascript" type="text/javascript">
+//strHtml='<title>'+vt_wstatus+'</title>';
+//dw(strHtml);
+strHtml='<LINK REL="stylesheet" TYPE="text/css" HREF="'+vcss_type+'">';
+dw(strHtml);
+var dot11OperMode= 3;
+
+function init()
+{
+    if(dot11OperMode==1)
+    {
+        div_WL_UICtrl=document.getElementById("id_WL_UICtrl");
+        div_WL_UICtrl.innerHTML="<br><FONT face=Arial color=\"white\" size=4>"+msg_WL_IF_disabled+"</FONT>";
+    }
+    else
+    {
+        if(dot11OperMode==2)
+        {
+            opermode_RW_control(dot11OperMode);
+        }
+    }
+
+     FocusActiveSubtab();		
+	
+}
+
+</script>
+</head>
+
+<body class="BodyStyle" onLoad="init()">
+<div class="BackgroundStyle">
+<img width="100%" alt="" src="pageBackground.jpg"/>
+</div>
+
+<form method="POST" action="">
+<div align="center">
+<table class="showMenuTable">
+<script language="javascript" type="text/javascript">
+showHead('Cisco EPC3825 EuroDocsis 3.0 Data Gateway','EPC3825','@fw_version#',vstatus,' ');
+</script>
+
+<script language="javascript" type="text/javascript">
+showMenu(vstatus,vwlan,'32895',Array('11','247','7','63','15','43','23','0'));
+</script>
+</table>
+
+<div id="id_WL_UICtrl">
+<table class="Top">
+	<tr>
+		<td colspan="2" class="Top1"></td>
+		<td colspan="2" class="Top2"></td>
+	</tr>
+</table>
+
+<!-- Data Table -->
+<table class="dataTable">
+	<tr>
+		<td>
+			<table class="nav">
+				<tr>
+					<td class="bwhead">
+						<script language="javascript" type="text/javascript">dw(vt_wnet_colon);</script>
+					</td>
+					<td class="bwhead1">&nbsp;</td>
+					<td class="nav1">&nbsp;</td>
+				</tr>
+				<tr height="3px">
+					<td class="Item1"></td>
+					<td class="Item2"></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">
+						<table class="std" summary="">
+							<tr>
+								<td width="140" id="vb_macaddr" height="26" nowrap>
+									<script language="javascript" type="text/javascript">dw(vb_macaddr);</script>
+								</td>
+								<td headers="vb_macaddr" nowrap class="stdbold">
+									true_home2G_fc7 (0C:54:A5:C3:DA:F7)<br>
+</font></td></tr>
+								</td>
+							</tr>
+							<tr>
+								<td id="vt_mode" width="140" height="27" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_mode);</script>
+								</td>
+								<td headers="vt_mode" class="stdbold" nowrap>
+									<script language="javascript" type="text/javascript">dw(vw_networkmode_n2);</script>
+								</td>
+							</tr>
+							<tr>
+								<td id="vt_ssid" width="140" height="27" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_ssid);</script>
+								</td>
+								<td headers="vt_ssid" class="stdbold" nowrap>
+									"true_home2G_fc7"
+								</td>
+							</tr>
+							<tr>
+								<td id="vt_rd" width="140" height="25" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_rd);</script>
+								</td>
+								<td headers="vt_rd" class="stdbold" nowrap>
+									<script language="javascript" type="text/javascript">dw(vwRadio2);</script>
+								</td>
+							</tr>
+							<tr>
+								<td id="vt_sdchn" height="28" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_sdchn);</script>
+								</td>
+								<td headers="vt_sdchn" class="stdbold" nowrap>
+									11
+								</td>
+							</tr>
+							<tr>
+								<td id="vt_security" width="140" height="21" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_security);</script>
+								</td>
+								<td headers="vt_security" class="stdbold" nowrap>
+									<script language="javascript" type="text/javascript">dw(vs_wep64);</script>
+								</td>
+							</tr>
+							<tr>
+								<td id="vt_bc" width="140" height="24" nowrap>
+									<script language="javascript" type="text/javascript">dw(vt_bc);</script>
+								</td>
+								<td headers="vt_bc" nowrap>
+									<span class="stdbold"><script language="javascript" type="text/javascript">dw(vw_ssid0_Broadcast_open);</script></span>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td class="Item1"> </td>
+					<td class="Item2"> </td>
+					<td class="Item3">&nbsp;</td>
+				</tr>
+			</table>
+		</td>
+
+		<td class="help">
+			<table>
+				<tr>
+					<td>
+						&nbsp;<a href="help/h_WNetwork.htm" target="_blank" class="submenu">
+						<script language="javascript" type="text/javascript">dw(vhelp);</script></a>
+					</td>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<table class="bottom">
+	<tr>
+		<td class="Footer1">&nbsp;</td>
+		<td class="Footer2">
+			<script language="javascript" type="text/javascript">showRefresh("WNetwork.asp");</script>&nbsp; &nbsp;
+		</td>
+		<td class="Footer3">&nbsp;</td>
+	</tr>
+</table>
+</div>
+
+</div>
+</form>
+</body>
+</html>
