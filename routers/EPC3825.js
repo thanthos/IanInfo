@@ -2,8 +2,8 @@
 var cheerio = require('cheerio');
 
 var EPC3825 = function() {
-    this.model = 'EPC3825';
-    this.brand = 'CISCO';
+	this.model = 'EPC3825';
+	this.brand = 'CISCO';
 }
 
 /*
@@ -12,111 +12,113 @@ var EPC3825 = function() {
 
 */
 EPC3825.prototype.checkLogin = function(htmlBody, callback) {
-    var $ = cheerio.load(htmlBody);
-    var page = $("html head title").text();
+	var $ = cheerio.load(htmlBody);
+	var page = $("html head title").text();
 
-    if (page == 'About') {
-        if (callback) callback('Login Unsuccessfull');
-        return false;
-    } else {
-        if (callback) callback(null, 'Login Successful');
-        return true;
-    }
+	if (page == 'About') {
+		if (callback) callback('Login Unsuccessfull');
+		return false;
+	} else {
+		if (callback) callback(null, {
+			'login': 'Login Successful'
+		});
+		return true;
+	}
 }
 
 EPC3825.prototype.parseLandingPage = function(htmlBody, callback) {
 
-    var $ = cheerio.load(htmlBody);
-    var dataSet = $("table.nav * table.std[summary]");
-    var modemInfoDataSet = dataSet.find("td");
-    var modem = {};
+	var $ = cheerio.load(htmlBody);
+	var dataSet = $("table.nav * table.std[summary]");
+	var modemInfoDataSet = dataSet.find("td");
+	var modem = {};
 
-    try {
-        for (var i = 0; i < $(modemInfoDataSet).length; i++) {
+	try {
+		for (var i = 0; i < $(modemInfoDataSet).length; i++) {
 
-            var node = $(modemInfoDataSet)[i];
-            if ($(node).attr('headers') != null) {
-                modem[$(node).attr('headers')] = $(node).text().trim();
-            }
-        }
-    } catch (error) {
-        if (callback) callback(error);
-    }
+			var node = $(modemInfoDataSet)[i];
+			if ($(node).attr('headers') != null) {
+				modem[$(node).attr('headers')] = $(node).text().trim();
+			}
+		}
+	} catch (error) {
+		if (callback) callback(error);
+	}
 
-    if (callback) {
-        callback(null, modem);
-    }
-    return modem;
+	if (callback) {
+		callback(null, modem);
+	}
+	return modem;
 };
 
 EPC3825.prototype.parseLANStatus = function(htmlBody, callback) {
-    var $ = cheerio.load(htmlBody);
-    var dataSet = $("table.nav * table.std[summary]").find("td");
-    var lanStatus = {};
+	var $ = cheerio.load(htmlBody);
+	var dataSet = $("table.nav * table.std[summary]").find("td");
+	var lanStatus = {};
 
-    try {
-        for (var i = 0; i < $(dataSet).length; i++) {
-            var node = $(dataSet)[i];
-            if ($(node).attr('headers') != null) {
-                lanStatus[$(node).attr('headers')] = $(node).text().trim();
-            }
-        }
-    } catch (error) {
-        if (callback) callback(error);
-    }
+	try {
+		for (var i = 0; i < $(dataSet).length; i++) {
+			var node = $(dataSet)[i];
+			if ($(node).attr('headers') != null) {
+				lanStatus[$(node).attr('headers')] = $(node).text().trim();
+			}
+		}
+	} catch (error) {
+		if (callback) callback(error);
+	}
 
-    if (callback) {
-        callback(null, lanStatus);
-    }
+	if (callback) {
+		callback(null, lanStatus);
+	}
 
-    return lanStatus;
+	return lanStatus;
 };
 
 EPC3825.prototype.parseWANStatus = function(htmlBody, callback) {
-    var $ = cheerio.load(htmlBody);
-    var dataSet = $("table.nav * table.std[summary]").find("td");
-    var wanStatus = {};
+	var $ = cheerio.load(htmlBody);
+	var dataSet = $("table.nav * table.std[summary]").find("td");
+	var wanStatus = {};
 
-    try {
-        for (var i = 0; i < $(dataSet).length; i++) {
+	try {
+		for (var i = 0; i < $(dataSet).length; i++) {
 
-            var node = $(dataSet)[i];
-            if ($(node).attr('headers') != null) {
-                wanStatus[$(node).attr('headers')] = $(node).text().trim();
-            }
-        }
-    } catch (error) {
-        if (callback) callback(error);
-    }
+			var node = $(dataSet)[i];
+			if ($(node).attr('headers') != null) {
+				wanStatus[$(node).attr('headers')] = $(node).text().trim();
+			}
+		}
+	} catch (error) {
+		if (callback) callback(error);
+	}
 
-    if (callback) {
-        callback(null, wanStatus);
-    }
+	if (callback) {
+		callback(null, wanStatus);
+	}
 
-    return wanStatus;
+	return wanStatus;
 };
 
 EPC3825.prototype.parseWLANStatus = function(htmlBody, callback) {
-    var $ = cheerio.load(htmlBody);
-    var dataSet = $("table.nav * table.std[summary]").find("td");
-    var wlanStatus = {};
+	var $ = cheerio.load(htmlBody);
+	var dataSet = $("table.nav * table.std[summary]").find("td");
+	var wlanStatus = {};
 
-    try {
-        for (var i = 0; i < $(dataSet).length; i++) {
+	try {
+		for (var i = 0; i < $(dataSet).length; i++) {
 
-            var node = $(dataSet)[i];
-            if ($(node).attr('headers') != null) {
-                wlanStatus[$(node).attr('headers')] = $(node).text().trim();
-            }
-        }
-    } catch (error) {
-        if (callback) callback(error);
-    }
+			var node = $(dataSet)[i];
+			if ($(node).attr('headers') != null) {
+				wlanStatus[$(node).attr('headers')] = $(node).text().trim();
+			}
+		}
+	} catch (error) {
+		if (callback) callback(error);
+	}
 
-    if (callback) {
-        callback(null, wlanStatus);
-    }
-    return wlanStatus;
+	if (callback) {
+		callback(null, wlanStatus);
+	}
+	return wlanStatus;
 };
 
 module.exports = new EPC3825();

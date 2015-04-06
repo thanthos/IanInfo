@@ -1,7 +1,7 @@
 ﻿
 {
 	"name": "localRouterChecker",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "This is help monitor the local cable modem",
 	"author": "James Tang <jamez.tang@zeusview.com>",
 	"contributors": [],
@@ -18,6 +18,7 @@
 		"cheerio": "*",
 		"JSON": "*",
 		"mongoose": "*",
+		"mongoDB":"*",
 		"bcrypt-nodejs": "*",
 		"bunyan": "*",
 		"async": "*"
