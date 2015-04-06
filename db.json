@@ -1,0 +1,19 @@
+{
+	"db": {
+		"url": "mongodb://user:password@localhost/DB",
+		"options": {
+			"db": {
+				"native_parser": true,
+				"w": 1,
+				"numberOfRetries": 5
+			},
+			"server": {
+				"poolSize": 5,
+				"socketOptions": {
+					"keepAlive": 1
+				}
+			}
+		}
+	}
+
+}
