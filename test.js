@@ -8,7 +8,7 @@ describe('Checking Router Model EPC3825', function() {
     // Set up Router
     var router = require('./routers/EPC3825');
     it('Landing Page: MACAddress ', function(done) {
-        fs.readFile('./test/landingPage.html',
+        fs.readFile('./test/EPC3825/landingPage.html',
             function(err, data) {
                 var result = router.parseLandingPage(
                     decoder.write(data));
@@ -22,7 +22,7 @@ describe('Checking Router Model EPC3825', function() {
     });
 
     it('Login Success', function(done) {
-        fs.readFile('./test/LoginPass.html', function(err, data) {
+        fs.readFile('./test/EPC3825/LoginPass.html', function(err, data) {
             var result = router.checkLogin(decoder.write(
                 data));
             if (result) {
@@ -37,7 +37,7 @@ describe('Checking Router Model EPC3825', function() {
     });
 
     it('Login Failed', function(done) {
-        fs.readFile('./test/LoginFail.html', function(err, data) {
+        fs.readFile('./test/EPC3825/LoginFail.html', function(err, data) {
             var result = router.checkLogin(decoder.write(
                 data));
             if (!result) {
@@ -50,7 +50,7 @@ describe('Checking Router Model EPC3825', function() {
     });
 
     it('Status:WAN', function(done) {
-        fs.readFile('./test/wan.html', function(err, data) {
+        fs.readFile('./test/EPC3825/wan.html', function(err, data) {
             var result = router.parseWANStatus(decoder.write(
                 data));
 
@@ -64,7 +64,7 @@ describe('Checking Router Model EPC3825', function() {
     });
 
     it('Status:LAN', function(done) {
-        fs.readFile('./test/lan.html', function(err, data) {
+        fs.readFile('./test/EPC3825/lan.html', function(err, data) {
             var result = router.parseLANStatus(decoder.write(
                 data));
             if (result.MACAddress ==
@@ -77,7 +77,7 @@ describe('Checking Router Model EPC3825', function() {
     });
 
     it('Status:WLAN', function(done) {
-        fs.readFile('./test/wlan.html', function(err, data) {
+        fs.readFile('./test/EPC3825/wlan.html', function(err, data) {
             var result = router.parseWLANStatus(decoder
                 .write(data));
             if (result.vb_macaddr.indexOf(
