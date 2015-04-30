@@ -1,0 +1,268 @@
+﻿
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>D-Link VoIP Wireless Router</title>
+<style type="text/css">
+<!--
+body { margin:0px auto; padding:3px; font:12px Tahoma,Helvetica,Geneva,Arial,sans-serif; background:#757575;}
+	.content { margin:0px auto; padding:0px 1px; width:840px; height:450px; background:white;}
+		.title { padding:5px 6px 1px; height:20px; background:#404343; color:white;}
+			.product { float:left;}
+			.firmware { float:right; font-size:11px;}
+		.logo { margin:4px 0 40px 0; background:#98C31D;}
+		.login_bk { margin:0 auto; padding:0px; width:600px; height:208px; background:#F1F1F1;}
+			.login { height:206px; border:1px solid #98C31D; background:#DFDFDF; text-align:center;}
+				.login_title { padding:5px 10px; height:15px; font-weight:bold; background:#98C31D; text-align:left;}
+				p#lang_tips { text-align:left; margin:10px 10px 25px;}
+				.div_left { padding:3px 8px 9px; float:left; width:230px; text-align:right; font-weight:bold;}
+				.div_right { font-weight:bold; text-align:left; height:28px;}
+				.do { margin-top:10px;}
+				.div_button { margin-top:20px;}
+		.footer { margin-top:47px; background:#404343;}
+		p#copyright { color:#F1F1F1; text-align:center; font-size:11px; margin:10px;}
+-->
+</style>
+<script type="text/javascript" src="/html/languages/en_us/main.js"></script>
+<script type="text/javascript" src="/html/languages/en_us/error.js"></script>
+<script type="text/javascript" src="/html/js/boot.js?v=1"></script>
+<script type="text/javascript">
+/*---- Global variable define -----*/
+var G_Error	    = "1"; 
+var G_Status	= "0"; 
+var G_Error_Msg	= "result=12129007";
+var G_ViewState	= "-";
+var userLevel   = "-";
+var G_Menu      = "setup";
+var G_Page      = "wizard";
+var G_SubPage   = "-";
+var G_ErrorPage = "-";
+var G_Version='SH_1.00B047';
+var G_Date='08/26/2014-17:09:37';
+//
+
+<!--
+/*---- Global variable define -----*/
+var G_Error	    = "1";
+var G_Status	= "0";
+var G_Error_Msg	= "result=12129007";
+
+//support language
+var G_SupportLang = "zh_cn;en_us";
+//default language
+var G_DefaultLang = "en_us";
+
+//Init
+function uiOnload(){
+	//search language
+	//chg_language(data_language);
+	//create user option
+	//createUserOpt();
+	//$('SELECT_UserName').value = '-' == '-' ? 'admin' : '-';
+
+	var Psd = Cookie.Get('TBSPASSWORD');
+	var uname = Cookie.Get('sys_UserName');
+
+	if(uname !== null){
+		Form.Checkbox('INPUT_Remember', '1');
+		$('SELECT_UserName').value = (uname === 'undefined' ? '' : uname);//alert(1);
+	}
+	$('SELECT_UserName').focus();
+
+	if(Psd !== null){
+		Form.Checkbox('INPUT_Remember', '1');
+		$('INPUT_Psd').value = (Psd === 'undefined' ? '' : Psd);//alert(1);
+	}
+	$('SELECT_UserName').focus();
+
+	dealWithError();
+}
+/*
+function createUserOpt(){
+	var _text = [], _value = [];
+	var formIp = '192.168.151.190';
+
+	if(formIp.indexOf('192.168') > -1 || formIp.indexOf('172.16') > -1){
+		_text = ['admin','user'], _value = ['admin','user'];
+	} else {
+		_text = ['admin','user','support'], _value = ['admin','user','support'];
+	}
+	$S('SELECT_UserName', _text, _value);
+}
+*/
+function uipostLogin(){
+	if($('INPUT_Psd').value.length >= 32){
+		alert("Invalid Username or Password!");
+		return false;
+	}
+
+    //record  user name
+    recordUname();
+	//record password
+	recordPsd();
+	//record level
+   // Cookie.Set('sys_UserName', $('SELECT_UserName').value);
+
+	$H({
+		'getpage'   :'html/index.html',
+		'errorpage' :'html/main.html',
+		'var:menu'  :'setup',
+		'var:page'  :'wizard',
+		'var:subpage'  :'-',
+		'obj-action':'auth',
+		':username' :$('SELECT_UserName').value,
+		':password' :$("INPUT_Psd").value,
+		':action'   :'login',
+		':sessionid':'77e11911'
+	},true);
+	$('uiPostForm').submit();
+}
+
+function recordPsd(){
+	if(Form.Checkbox('INPUT_Remember')){ //checked = true;
+		Cookie.Set('TBSPASSWORD', $('INPUT_Psd').value, 720);
+	} else if(!Form.Checkbox('INPUT_Remember')){ //checked = false;
+		Cookie.Delete('TBSPASSWORD');
+	}
+}
+
+function recordUname(){
+	if(Form.Checkbox('INPUT_Remember')){ //checked = true;
+		Cookie.Set('sys_UserName', $('SELECT_UserName').value, 720);
+	} else if(!Form.Checkbox('INPUT_Remember')){ //checked = false;
+		Cookie.Delete('sys_UserName');
+	}
+}
+
+/* 更换main.html语言 */
+function onChgLang(){
+    setCookie('language', $('SELECT_Language').value);
+	document.location.href = '/cgi-bin/webproc';
+}
+
+/*
+对错误码的处理
+错误码的格式:节点名=错误码
+*/
+function dealErrorMsg(arrayNode, errorMsg){
+	if (typeof errorMsg != 'string')
+	    return;
+
+	//将错误信息一分为二：前段寻找错误码对应的节点；后段寻找错误码对应的提示；
+	var errorFragment = errorMsg.split('=');
+	var errorCode, errorString, leafNode;
+
+	//寻找错误码对应的节点;
+	if (errorFragment != null && errorFragment.length > 0){
+		var _fragment = errorFragment[0].split('.');
+		leafNode = _fragment[_fragment.length - 1];
+		leafNode = arrayNode[leafNode];
+	}
+
+	//在获取错误码后，立即寻找相应的错误码。
+	if (errorFragment[1] != null){
+		errorCode = errorFragment[1].match(/^[0-9]{4}/)[0];
+	} else {
+		if (errorMsg.match(/^[0-9]{4}/) == null){
+            leafNode = arrayNode["result"];
+
+			if($(leafNode)){
+				$(leafNode).innerHTML = errorMsg;
+			}
+            return false;
+	    }
+	    errorCode = errorMsg.match(/^[0-9]{4}/)[0];
+	}
+
+	if(UEcode[errorCode] !== undefined){
+		errorString = UEcode[errorCode];
+	} else if (SEcode[errorCode] !== undefined ) {
+		errorString = SEcode[errorCode];
+	} else {
+		errorString = SEcode[1000];
+	}
+
+	//选择两种不同的错误提示方式：1、将错误准确打印在对应的输入框之后；2、对于未知错误，以告警框来提示；
+	if (leafNode != undefined){
+		$(leafNode).innerHTML = errorString;
+	} else {
+		alert(errorString + "!");
+	}
+}
+
+function enter(e)
+
+{
+
+var evt = e ? e : (window.event ? window.event : null);  
+
+if(evt.keyCode == 13)
+
+   uipostLogin();
+
+}
+
+function dealWithError(){
+	if(G_Error != 1){
+		return false;
+	}
+
+	var arrayHint = [];
+
+	dealErrorMsg(arrayHint, G_Error_Msg);
+}
+
+window.onload = uiOnload;
+-->
+</script>
+</head>
+
+<body>
+	<!-- content -->
+	<div class="content">
+		<!-- title -->
+		<div class="title">
+			<div class="product"></div><div class="firmware">Firmware Version : SH_2.00B056</div>
+		</div>
+		<!-- logo -->
+		<div class="logo">
+			<table>
+				<td align="left" width="5%">
+					<img src="/html/skin/logo.gif" alt="logo"/>
+				</td>
+				<td width="90%"></td>
+				<td algin="right" width="5%">
+					<img src="/html/skin/logo_StarHub.gif" alt="logo"/>
+				</td>
+			</table>
+		</div>
+		<!-- login background -->
+		<div class="login_bk">
+			<!-- login -->
+			<div class="login">
+				<!-- login title -->
+				<div class="login_title">LOGIN</div>
+				<!-- tips-->
+				<p id="lang_tips">Welcome to DVG-N5402SP Web Management</p>
+				<!-- username/password -->
+				<div class="div_left" id="lang_username">Username :</div><div class="div_right"> <input id="SELECT_UserName" style="font-size:11px;width:80px;" maxlength="31"></div>
+				<div class="div_left" id="lang_password">Password :</div><div class="div_right"> <input type="password" id="INPUT_Psd" maxlength="31" style="width:80px; "  onKeyDown = "enter(event)"/></div>
+				<!-- remember me -->
+				<div style="margin-left:60px; font-size:11px;"><input type="checkbox" id="INPUT_Remember" /> <label for="INPUT_Remember">Remember my login info. on this computer</label></div>
+				<!-- submit -->
+				<div class="div_button"><input type="submit" id="submit" value="Login" onclick="uipostLogin()"/></div>
+			</div>
+			<!-- login failed -->
+		</div>
+		<!-- footer -->
+		<div class="footer"><img src="/html/skin/broadband.gif" /></div>
+	</div>
+	<!-- copyright-->
+	<p id="copyright">Copyright © 2005-2007 D-Link Systems, Inc.</p>
+	<!-- form -->
+	<form id="uiPostForm" method="post" action="webproc"></form>
+</body>
+</html>

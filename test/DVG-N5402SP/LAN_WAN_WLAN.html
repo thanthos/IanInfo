@@ -1,0 +1,759 @@
+
+
+
+
+
+
+
+	
+	
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Pragma" content="No-cache" />
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+<meta http-equiv="Expires" content="-1" />
+<title>D-Link VoIP Wireless Router</title>
+<link type="text/css" rel="stylesheet" href="/html/skin/common.css?v=dlink0006" media="screen" />
+<script type="text/javascript" src="/html/languages/en_us/error.js?v=dlink0006"></script>
+<script type="text/javascript" src="/html/languages/en_us/menu.js?v=dlink0006"></script>
+<script type="text/javascript" src="/html/languages/en_us/page/deviceinfo.js?v=dlink0006"></script>
+<script type="text/javascript" src="/html/js/boot.js?v=dlink0006"></script>
+<script type="text/javascript" src="/html/js/secboot.js?v=dlink0006"></script>
+<script type="text/javascript">
+<!--
+/*---- Global variable define -----*/
+var G_Error	    = "0"; 
+var G_Status	= "0"; 
+var G_Error_Msg	= "";
+var G_ViewState	= "-";
+var userLevel   = "2";
+var G_Menu      = "status";
+var G_Page      = "deviceinfo";
+var G_SubPage   = "-";
+var G_ErrorPage = "-";
+var G_Version='SH_1.00B047';
+var G_Date='08/26/2014-17:09:37';
+//
+
+
+/*******************************************all device info***************************************************/
+	var G_Manufacturer 		    = "D-Link";
+	var G_ManufacturerOUI 		= "28107B";
+	var G_ModelName 			= "DVG-N5402SP";
+	var G_Descripstion 			= "NET Broadband System";
+	var G_SerialNumber 			= "PX1D3C2004974";
+	var G_HarewareVersion 		= "A1";
+	var G_SoftwareVersion 		= "SH_2.00B056";
+	var G_ModemFirmwareVersion 	= "SH_2.00B056";
+	var G_UpTime               = "2612047";
+
+	var G_CurrentLocalTime      = "2015-04-11T15:25:45";
+
+/**************************************all wan info***********************************************************/
+var G_ATM = [];
+var m = 0;
+/*
+</objget :InternetGatewayDevice.WANDevice.1.WANConnectionDevice. "WANDSLLinkConfig.LinkType WANDSLLinkConfig.DestinationAddress WANDSLLinkConfig.ATMEncapsulation WANDSLLinkConfig.ATMQoS"
+`	G_ATM[m] = ["InternetGatewayDevice.WANDevice.1.WANConnectionDevice.$00.",//Path
+				"$01",//LinkType
+				"$02",//DestinationAddress
+				"$03",//ATMEncapsulation
+				"$04" //ATMQoS
+				];
+	m++;
+`/>
+*/
+//Wan Conns List
+var G_wanConnction = [];
+var m = 0;
+			G_wanConnction[m] = ["InternetGatewayDevice.WANDevice.1.WANConnectionDevice.2.WANIPConnection.1.", //Path
+							 	 "Connected",    //ConnectionStatus
+								 "TR069",    //name
+								 "1",    //enalbe
+								 "IP_Routed",    //ConnectionType
+								 "DHCP",    //AddressingType
+								 "28:10:7B:DE:84:19",	   //Mac
+								 "Enable", //qos
+								 "10.208.156.90",    //ip addr
+								 "10.208.128.1",    //default gw
+								 "0",    // dnsoverride
+								 "202.156.1.16,218.186.2.6,218.186.2.16",    // dnsserver
+								 "165.21.83.88,165.21.100.88",    //user dns
+								 "255.255.128.0",    //mask
+								 "2611958"     //Uptime
+								 ];
+			++m;
+		
+	
+	
+			G_wanConnction[m] = ["InternetGatewayDevice.WANDevice.1.WANConnectionDevice.3.WANIPConnection.1.", //Path
+							 	 "Connected",    //ConnectionStatus
+								 "INTERNET",    //name
+								 "1",    //enalbe
+								 "IP_Routed",    //ConnectionType
+								 "DHCP",    //AddressingType
+								 "28:10:7B:DE:84:1A",	   //Mac
+								 "Enable", //qos
+								 "101.127.47.9",    //ip addr
+								 "101.127.47.1",    //default gw
+								 "0",    // dnsoverride
+								 "202.156.1.16,218.186.2.16,218.186.2.6",    // dnsserver
+								 "",    //user dns
+								 "255.255.255.0",    //mask
+								 "2611825"     //Uptime
+								 ];
+			++m;
+		
+	
+	
+			G_wanConnction[m] = ["InternetGatewayDevice.WANDevice.1.WANConnectionDevice.4.WANIPConnection.1.", //Path
+							 	 "Connected",    //ConnectionStatus
+								 "VOIP",    //name
+								 "1",    //enalbe
+								 "IP_Routed",    //ConnectionType
+								 "DHCP",    //AddressingType
+								 "28:10:7B:DE:84:1B",	   //Mac
+								 "Enable", //qos
+								 "10.190.33.119",    //ip addr
+								 "10.190.0.1",    //default gw
+								 "0",    // dnsoverride
+								 "",    // dnsserver
+								 "",    //user dns
+								 "255.255.128.0",    //mask
+								 "2611945"     //Uptime
+								 ];
+			++m;
+		
+	
+	
+
+
+
+
+var G_dsl_uprate = ''//"</get :InternetGatewayDevice.WANDevice.1.WANDSLInterfaceConfig.UpstreamCurrRate />";
+var G_dsl_downrate = ''//"</get :InternetGatewayDevice.WANDevice.1.WANDSLInterfaceConfig.DownstreamCurrRate />";
+
+var G_DefaultRouter = "InternetGatewayDevice.WANDevice.1.WANConnectionDevice.3.WANIPConnection.1";
+
+
+/***********************            get igmp info ************************************************************/
+
+
+/*****************************************All Wlan device info************************************************/
+
+var G_Wlan_Info = [];
+var t = 0;
+	G_Wlan_Info[t] = [];
+	G_Wlan_Info[t][0] = "InternetGatewayDevice.LANDevice.1.WLANConfiguration.1";
+	G_Wlan_Info[t][1] = "hmFibre";		//SSID
+	G_Wlan_Info[t][2] = "28:10:7B:DE:84:18";		//BSSID
+	G_Wlan_Info[t][3] = "11i";		//BeaconType
+	G_Wlan_Info[t][4] = "0";		//TotalAssociations
+	G_Wlan_Info[t][5] = "0";		//Enable
+	G_Wlan_Info[t][6] = "1";		//ChannelsInUse
+	G_Wlan_Info[t][7] = "bgn";		//Standard
+	G_Wlan_Info[t][8] = "";		//BasicEncryptionModes
+	t++;
+	G_Wlan_Info[t] = [];
+	G_Wlan_Info[t][0] = "InternetGatewayDevice.LANDevice.1.WLANConfiguration.2";
+	G_Wlan_Info[t][1] = "dlink1";		//SSID
+	G_Wlan_Info[t][2] = "06:1E:E3:5B:21:E8";		//BSSID
+	G_Wlan_Info[t][3] = "None";		//BeaconType
+	G_Wlan_Info[t][4] = "0";		//TotalAssociations
+	G_Wlan_Info[t][5] = "0";		//Enable
+	G_Wlan_Info[t][6] = "6";		//ChannelsInUse
+	G_Wlan_Info[t][7] = "bgn";		//Standard
+	G_Wlan_Info[t][8] = "";		//BasicEncryptionModes
+	t++;
+	G_Wlan_Info[t] = [];
+	G_Wlan_Info[t][0] = "InternetGatewayDevice.LANDevice.1.WLANConfiguration.3";
+	G_Wlan_Info[t][1] = "dlink2";		//SSID
+	G_Wlan_Info[t][2] = "0A:1E:E3:5B:21:E8";		//BSSID
+	G_Wlan_Info[t][3] = "None";		//BeaconType
+	G_Wlan_Info[t][4] = "0";		//TotalAssociations
+	G_Wlan_Info[t][5] = "0";		//Enable
+	G_Wlan_Info[t][6] = "6";		//ChannelsInUse
+	G_Wlan_Info[t][7] = "bgn";		//Standard
+	G_Wlan_Info[t][8] = "";		//BasicEncryptionModes
+	t++;
+	G_Wlan_Info[t] = [];
+	G_Wlan_Info[t][0] = "InternetGatewayDevice.LANDevice.1.WLANConfiguration.4";
+	G_Wlan_Info[t][1] = "dlink3";		//SSID
+	G_Wlan_Info[t][2] = "0E:1E:E3:5B:21:E8";		//BSSID
+	G_Wlan_Info[t][3] = "None";		//BeaconType
+	G_Wlan_Info[t][4] = "0";		//TotalAssociations
+	G_Wlan_Info[t][5] = "0";		//Enable
+	G_Wlan_Info[t][6] = "6";		//ChannelsInUse
+	G_Wlan_Info[t][7] = "bgn";		//Standard
+	G_Wlan_Info[t][8] = "";		//BasicEncryptionModes
+	t++;
+
+
+/**********************************************all lan info***************************************************/
+//all lan info
+var G_lan_info = []
+ var G_lan_dhcp_enable = "0";
+  var G_lan_ip_addr     = "192.168.151.1";
+  var G_lan_mask        = "255.255.255.0";
+  var G_lan_dhcp_lease  = "21600";
+  var G_lan_dhcp_max_addr = "192.168.151.200";
+  var G_lan_dhcp_min_addr = "192.168.151.100";
+  var G_lan_dhcp_servername = "192.168.151.32,208.67.222.222";
+  var G_lan_dhcp_dnsrelay = "0";
+  
+ var G_lan_mac = "28:10:7B:DE:84:17";
+// var G_wan_mac = "</get :InternetGatewayDevice.WANDevice.1.WANConnectionDevice.1.X_TWSZ-COM_FactoryMACAddress/>";
+
+/*************************************************************************************************************/
+var igmp_enable = "1"
+var igmp_wan = "InternetGatewayDevice.WANDevice.1.WANConnectionDevice.3.WANIPConnection.1"
+
+
+/*********************************** wan process ***************************************/
+
+function getPrototype(){
+	var _prototype = 'Unknown';
+	
+	if(G_wanConnction[_w_i][0].indexOf('IP') > 0){
+		if (G_wanConnction[_w_i][4] == "IP_Bridged"){
+			return G_wanConnction[_w_i][4];
+		}
+		return G_wanConnction[_w_i][5];
+	} else {
+		if(G_wanConnction[_w_i][4] == 'IP_Routed'){
+			return G_wanConnction[_w_i][5];
+		}
+		return G_wanConnction[_w_i][4] == 'PPTP_Relay' ? 'PPTP' : 
+				G_wanConnction[_w_i][4] == 'L2TP_Relay' ? 'L2TP' : 
+				G_wanConnction[_w_i][4] == 'PPPoU'      ? 'PPPoU': _prototype;
+	}
+} 
+
+function System_Info_Table_Create(){
+	setJSONValue({
+		'system_info_model_name' : G_ModelName,
+		'system_info_serial_number' : G_SerialNumber,
+		'system_info_time'		 : G_CurrentLocalTime.replace('T',' '),
+		'system_info_firmware'	 : G_ModemFirmwareVersion + " / "+ G_Date,
+		'system_info_uptime' : TranslateTime(G_UpTime)
+	});
+}
+
+function createWanConnsOpt(){
+	var _text = [], _value = [];
+	var _wanidx;
+
+	for(var i = 0,_len = G_wanConnction.length; i < _len; i++){
+			
+		_text[i]  = G_wanConnction[i][2];
+		_value[i] = G_wanConnction[i][0];
+	}
+   
+
+	$S('SELECT_WanConns', _text, _value);
+	//取记录的WAN连接Idx
+	if((_wanidx = Cookie.Get('WanIdx')) != null && G_wanConnction[_wanidx]){
+		$('SELECT_WanConns').value = G_wanConnction[_wanidx][0];
+		_w_i = _wanidx;
+	}
+}
+
+//wan index
+var _w_i = 0;
+function Wan_Port_Info_Table_Create()
+{
+    if(userLevel  == "2")
+    {
+	if (!((G_wanConnction[_w_i][2].indexOf('TR069') > -1) || (G_wanConnction[_w_i][2].indexOf('VOIP') > -1)))
+	{
+	setJSONValue({
+		'TD_wan_default_mac'         : G_wanConnction[_w_i] && G_wanConnction[_w_i][6] || '&nbsp;',
+		'internet_connection_status' : G_wanConnction[_w_i] && (G_wanConnction[_w_i][1] + '(' + getPrototype() + ')') || '&nbsp;',
+		'internet_IP_address'		 : G_wanConnction[_w_i] && (G_wanConnction[_w_i][4]=="IP_Bridged") ? '&nbsp;' : G_wanConnction[_w_i] && G_wanConnction[_w_i][8] || '&nbsp;',
+		'internet_IP_mask'			 : G_wanConnction[_w_i] && (G_wanConnction[_w_i][4]=="IP_Bridged") ? '&nbsp;' : G_wanConnction[_w_i] && G_wanConnction[_w_i][13] || '&nbsp;',
+		'internet_Default_gw'		 : G_wanConnction[_w_i] && (G_wanConnction[_w_i][4]=="IP_Bridged") ? '&nbsp;' : G_wanConnction[_w_i] && G_wanConnction[_w_i][9] || '&nbsp;',
+		'internet_DNS'			     : G_wanConnction[_w_i] && (G_wanConnction[_w_i][10]=="1" ? G_wanConnction[_w_i][12] : G_wanConnction[_w_i][11]) || '&nbsp;',
+		'internet_Uptime'			: G_wanConnction[_w_i] && (G_wanConnction[_w_i][1] == "Connected")?TranslateTime(G_wanConnction[_w_i][14]) : '&nbsp;'
+	});
+	}
+	else
+	{
+		setJSONValue({
+		'TD_wan_default_mac'         : G_wanConnction[_w_i] && G_wanConnction[_w_i][6] || '&nbsp;',
+		'internet_connection_status' : G_wanConnction[_w_i] && (G_wanConnction[_w_i][1] + '(' + getPrototype() + ')') || '&nbsp;',
+		'internet_IP_address'		 : G_wanConnction[_w_i] && (G_wanConnction[_w_i][4]=="IP_Bridged") ? '&nbsp;' : G_wanConnction[_w_i] && G_wanConnction[_w_i][8] && '&nbsp;',
+		'internet_IP_mask'			 : G_wanConnction[_w_i] && (G_wanConnction[_w_i][4]=="IP_Bridged") ? '&nbsp;' : G_wanConnction[_w_i] && G_wanConnction[_w_i][13] && '&nbsp;',
+		'internet_Default_gw'		 : G_wanConnction[_w_i] && (G_wanConnction[_w_i][4]=="IP_Bridged") ? '&nbsp;' : G_wanConnction[_w_i] && G_wanConnction[_w_i][9] && '&nbsp;',
+		'internet_DNS'			     : G_wanConnction[_w_i] && (G_wanConnction[_w_i][10]=="1" ? G_wanConnction[_w_i][12] : G_wanConnction[_w_i][11]) && '&nbsp;',
+		'internet_Uptime'			: G_wanConnction[_w_i] && (G_wanConnction[_w_i][1] == "Connected")?TranslateTime(G_wanConnction[_w_i][14]) : '&nbsp;'
+	});
+
+	}
+    }
+	else
+		{
+		setJSONValue({
+		'TD_wan_default_mac'         : G_wanConnction[_w_i] && G_wanConnction[_w_i][6] || '&nbsp;',
+		'internet_connection_status' : G_wanConnction[_w_i] && (G_wanConnction[_w_i][1] + '(' + getPrototype() + ')') || '&nbsp;',
+		'internet_IP_address'		 : G_wanConnction[_w_i] && (G_wanConnction[_w_i][4]=="IP_Bridged") ? '&nbsp;' : G_wanConnction[_w_i] && G_wanConnction[_w_i][8] || '&nbsp;',
+		'internet_IP_mask'			 : G_wanConnction[_w_i] && (G_wanConnction[_w_i][4]=="IP_Bridged") ? '&nbsp;' : G_wanConnction[_w_i] && G_wanConnction[_w_i][13] || '&nbsp;',
+		'internet_Default_gw'		 : G_wanConnction[_w_i] && (G_wanConnction[_w_i][4]=="IP_Bridged") ? '&nbsp;' : G_wanConnction[_w_i] && G_wanConnction[_w_i][9] || '&nbsp;',
+		'internet_DNS'			     : G_wanConnction[_w_i] && (G_wanConnction[_w_i][10]=="1" ? G_wanConnction[_w_i][12] : G_wanConnction[_w_i][11]) || '&nbsp;',
+		'internet_Uptime'			: G_wanConnction[_w_i] && (G_wanConnction[_w_i][1] == "Connected")?TranslateTime(G_wanConnction[_w_i][14]) : '&nbsp;'
+	     });
+		}
+	
+		 
+}
+
+function Lan_port_Info_Table_Create(){
+	setJSONValue({
+		'local_mac_address' : G_lan_mac,
+		'local_ip_address'	: G_lan_ip_addr,
+		'local_netmask'		: G_lan_mask
+	});
+}
+
+function Dhcp_Server_Info_Table_Create(){
+	setJSONValue({
+		'TD_dhcp_server_enable'     : G_lan_dhcp_enable == '1' ? 'Enabled' : 'Disabled',
+		'TD_dhcp_server_ip_pool'    : G_lan_dhcp_min_addr + "-" + G_lan_dhcp_max_addr,
+		'TD_dhcp_server_lease_time'	: Number(G_lan_dhcp_lease)/3600 + ' Hour',
+		'TD_dhcp_server_name'		: G_lan_dhcp_dnsrelay == '1' ? G_lan_ip_addr : G_lan_dhcp_servername
+	});
+}
+
+function createWlanOpt(){
+	var _text = [], _value = [];
+	
+	if(userLevel  == "1"){
+		for(var i = 0; i < G_Wlan_Info.length; i++){
+			_text[i] = G_Wlan_Info[i][1];
+			_value[i] = i;
+		}
+	}
+	if(userLevel  == "2"){
+		for(var i = 0; i < 1; i++){
+			_text[i] = G_Wlan_Info[i][1];
+			_value[i] = i;
+		}	
+	}
+
+	$S('SELECT_SSID', _text, _value);
+}
+
+function Wlan_Table_Create(_idx){
+	var channel;
+	switch(G_Wlan_Info[_idx][6])
+	{
+		case '1':
+			channel = '2.412GHz - CH1';
+			break;
+		case '2':
+			channel = '2.417GHz - CH2';
+			break;
+		case '3':
+			channel = '2.422GHz - CH3';
+			break;
+		case '4':
+			channel = '2.427GHz - CH4';
+			break;
+		case '5':
+			channel = '2.432GHz - CH5';
+			break;
+		case '6':
+			channel = '2.437GHz - CH6';
+			break;
+		case '7':
+			channel = '2.442GHz - CH7';
+			break;
+		case '8':
+			channel = '2.447GHz - CH8';
+			break;
+		case '9':
+			channel = '2.452GHz - CH9';
+			break;
+		case '10':
+			channel = '2.457GHz - CH10';
+			break;
+		case '11':
+			channel = '2.462GHz - CH11';
+			break;
+		case '12':
+			channel = '2.467GHz - CH12';
+			break;
+		case '13':
+			channel = '2.472GHz - CH13';
+			break;
+		case '14':
+			channel = '2.477GHz - CH14';
+			break;
+
+	}
+	setJSONValue({
+		'TD_wlan_radio'        : G_Wlan_Info[0][5] == '1' ? 'Enabled' : 'Disabled',
+		'SELECT_SSID'         : _idx,
+		'TD_wlan_bssid'        : G_Wlan_Info[_idx][2] || '&nbsp;',
+		'TD_wlan_mode'         : getWlanMode(G_Wlan_Info[_idx][7]),
+		'TD_wlan_channel'      : channel,
+		'TD_wlan_securitymode' : getSecMode(_idx)
+	});
+}
+
+function getWlanMode(_mode){
+	switch(_mode){
+		case 'b' :
+			return '802.11b only';
+		case 'g' :
+			return '802.11g only';
+		case 'n' :
+			return '802.11n only';
+		case 'bg' :
+			return 'Mixed 802.11b/g';
+		case 'ng' :
+			return 'Mixed 802.11n/g';
+		case 'bgn' :
+			return 'Mixed 802.11b/g/n';
+	}
+}
+
+function getSecMode(_idx){
+	var _mode = G_Wlan_Info[_idx][3] == 'Basic' && G_Wlan_Info[_idx][8] == 'None' ? 'None' : (G_Wlan_Info[_idx][3] || 'None');
+	return _mode == 'Basic' ? 'WEP' : _mode == 'WPA' ? 'WPA only' : _mode == '11i' ? 'WPA2 only' : _mode == 'WPAand11i' ? 'WAP2 Mixed' : 'None';
+}
+
+function onchgWanConns(_this){
+	for(var i = 0, _len = G_wanConnction.length; i < _len; i++){
+		if(G_wanConnction[i][0] == _this.value){
+			_w_i = i;
+			//保存到Cookie中
+			Cookie.Set('WanIdx',i);
+			break;
+		}
+	}
+
+	Wan_Port_Info_Table_Create();
+}
+
+function Hardware_Table_Create(){
+	setJSONValue({
+		'TD_Hardware_platform' : "TBS" || '&nbsp;',
+		'TD_Hardware_version'  : G_HarewareVersion
+	});
+}
+
+
+/**************************************************************************************/
+
+function uiOnload(){
+	createWanConnsOpt();
+	createWlanOpt();
+	Wan_Port_Info_Table_Create();
+	Dhcp_Server_Info_Table_Create();
+	Hardware_Table_Create();
+	System_Info_Table_Create();
+	Wlan_Table_Create(0);
+	Lan_port_Info_Table_Create();
+	uiRefreshTime(G_UpTime);
+	setTimeout('uiPageRefresh()', 10000);
+}
+
+var _current_time;
+function uiRefreshTime(num_time)
+{
+	if (num_time)
+	{
+		_current_time = Number(num_time);
+	}
+	
+	var fm_time;
+	if (_current_time < 60) //seconds
+	{
+		fm_time = '00:00:' + fillZero(fm_time);
+	}
+	else if (_current_time < 3600) //minutes
+	{
+		fm_time = '00:' + fillZero(Math.floor(_current_time/60)) + ':' + fillZero(_current_time%60);
+	}
+	else if(_current_time < 86400) //hours
+	{
+		fm_time = fillZero(Math.floor(_current_time/3600)) + ':' + fillZero(Math.floor(_current_time%3600/60)) + ':' + fillZero(_current_time%3600%60);
+	}
+	else //days
+	{
+		fm_time = Math.floor(_current_time/86400) + ' days ' + fillZero(Math.floor(_current_time%86400/3600)) + ':' + fillZero(Math.floor(_current_time%86400%3600/60)) + ':' + fillZero(_current_time%86400%3600%60);
+	}
+}
+
+function fillZero(_num)
+{
+	return _num < 10 ? '0' + _num : _num;
+}
+
+function TranslateTime(temp){
+	if (!temp)
+		return "0";
+	if (temp.length <= 0)
+		return "0";
+	if (temp == "N/A")
+		return temp;
+	var time = parseInt(temp);
+	var days = parseInt(time / (60 * 60 * 24));
+	time = time % (60 * 60 * 24);
+	var hourss = parseInt(time / (60 * 60));
+	time = time % (60 * 60);
+	var minutess = parseInt(time / 60);
+	var secondss = time % 60;
+	var hours = fillZero(hourss);
+	var minutes = fillZero(minutess);
+	var seconds = fillZero(secondss);
+	var uptime;
+	if (days > 0){
+		uptime = "" + days + " Day  " + hours + "Hour " + minutes + "Min " + seconds + "Sec";
+	}else{
+	
+		uptime = " 0 Day " + hours + "Hour " + minutes + "Min " + seconds + "Sec";
+	}
+	return uptime;
+}
+
+function dealWithError(){
+	if (G_Error != 1){
+		return false;
+	}
+
+	var arrayHint = [];
+
+	dealErrorMsg(arrayHint, G_Error_Msg);
+  }
+
+addListeners(uiOnload, dealWithError);
+
+-->
+</script>
+</head>
+
+<body>
+<!-- header -->
+<div class="header">
+	<!-- title -->
+	<div class="title">
+	<div class="firmware"><a href="/cgi-bin/webproc?getpage=html/index.html&var:menu=aa&var:page=sitemap"><img src="/html/skin/img_arrow.gif" alt="site map"/> Site Map</a>&nbsp;&nbsp;&nbsp;&nbsp; Firmware Version : SH_2.00B056</div> 
+	</div>
+	<!-- logo -->
+	<div class="logo">
+		<table>
+			<td align="left" width="5%">
+				<img src="/html/skin/logo.gif" alt="logo"/>
+			</td>
+			<td width="90%"></td>
+			<td algin="right" width="5%">
+				<img src="/html/skin/logo_StarHub.gif" alt="logo"/>
+			</td>
+		</table>
+	</div>
+</div>
+<!-- main menu -->
+<div class="main_menu">
+	<div class="model"><img src="/html/skin/img_modnum_N5402SP.gif" alt="N5402SP" /></div>
+	<ul>
+		<li><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wizard"><span id="">setup</span></a></li>
+		<li><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=advanced&var:page=advvoip"><span id="">advanced</span></a></li>
+		<li><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=maintenance&var:page=accountpsd"><span id="">maintenance</span></a></li>
+		<li><a id="on" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=deviceinfo"><span id="">status</span></a></li>
+  <!--   <li><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=help&var:page=helpmenu"><span id="">help</span></a></li>
+    -->
+	</ul>
+</div>
+<!-- content -->
+<table class="content">
+	<tr>
+	<!-- sub menu-->
+			<td class="td_menu">
+			<div class="sub_menu">
+			<!-- setup -->
+			
+			<!-- advanced -->
+			
+			<!-- maintenance -->
+			
+			<!-- status -->
+				<p><a id="on" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=deviceinfo">Device Info</a></p>
+				<p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=voip_status">VoIP Status</a></p>
+				<p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=dhcpclients">LAN Client</a></p>
+                   <p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=ipv6_status">IPv6 Status</a></p>
+                
+				<!--
+				<p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=logview">Logs</a></p>
+				-->
+				<p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=statistics">Statistics</a></p>
+				<p class="SecLevel"><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=routeinfo">Routing Table</a></p>
+				<p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=logout">Logout</a></p>
+			
+			<!-- help -->
+			
+			</div>
+		</td>
+
+	<!-- config -->
+		<style type="text/css"><!--
+		.td_bold { font-weight:bold; width:256px;}
+		.td_table_s td { text-align:left;}
+	 --></style>
+	<td>
+	<div class="config2">
+		<p class="bk_orange">device info</p>
+		<div class="div_orange">
+				<p>All of your Internet and network connection details are displayed on this page. The firmware version is also displayed here.</p>
+		</div>
+			
+		<p class="do bk_black">system info</p>
+		<div class="div_black">
+			<table class="td_table_s" id='system_info_table'>
+				<tr>
+					<td class="td_bold">Model Name :</td><td id="system_info_model_name">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="td_bold">Serial Number :</td><td id="system_info_serial_number">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="td_bold">Time and Date :</td><td id="system_info_time">&nbsp;</td>
+				</tr>
+				<tr>	
+					<td class="td_bold">Firmware Version :</td><td id="system_info_firmware">&nbsp;</td>
+				</tr>
+				<tr>	
+					<td class="td_bold">Uptime :</td><td id="system_info_uptime">&nbsp;</td>
+				</tr>
+			</table>
+		</div> 
+
+		<p class="do bk_black">WAN Port Information</p>
+		<div class="div_black">
+			<div id="internet_info">
+			<table class="td_table_s">
+				<tr>
+					<td class="td_bold">Wan Connection :</td><td><select id="SELECT_WanConns" onChange="onchgWanConns(this)"></select></td>
+				</tr>
+				<tr>
+					<td class="td_bold">Factory Default MAC Address :</td><td id="TD_wan_default_mac">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="td_bold">Net Link :</td><td id="internet_connection_status">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="td_bold">IP address :</td><td id="internet_IP_address">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="td_bold">Subnet mask :</td><td id="internet_IP_mask">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="td_bold">Default Gateway :</td><td id="internet_Default_gw">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="td_bold">Domain Name Server :</td><td id="internet_DNS">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="td_bold">Uptime :</td><td id="internet_Uptime">&nbsp;</td>
+				</td>
+			</table>
+			</div>			
+		</div>
+		
+		<p class="do bk_black">LAN Port Information</p>
+		<div class="div_black">
+			<table class="td_table_s" id='local_info_table'>
+			<tr>
+				<td class="td_bold">MAC Address:</td><td id="local_mac_address">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="td_bold">IP Address:</td><td id="local_ip_address">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="td_bold">Subnet Mask:</td><td id="local_netmask">&nbsp;</td>
+			</tr>
+			</table>
+		</div>
+		
+		<p class="do bk_black">Wireless LAN</p>
+		<div class="div_black">
+			<table class="td_table_s" id='wlan_info_table'>
+			<tr>
+				<td class="td_bold">Wireless Radio :</td><td id="TD_wlan_radio">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="td_bold">Wireless Network Name (SSID) :</td><td id="TD_wlan_ssid"><select id="SELECT_SSID" onChange="Wlan_Table_Create(this.value)"></select></td>
+			</tr>			
+			<tr>
+				<td class="td_bold">BSSID :</td><td id="TD_wlan_bssid">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="td_bold">802.11 Mode :</td><td id="TD_wlan_mode">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="td_bold">Wireless Channel :</td><td id="TD_wlan_channel">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="td_bold">Wireless Security Mode :</td><td id="TD_wlan_securitymode">&nbsp;</td>
+			</tr>
+			</table>
+		</div>
+		
+		<p class="do bk_black">DHCP Server</p>
+		<div class="div_black">
+			<table class="td_table_s" id='Table_dhcp_server'>
+			<tr>
+				<td class="td_bold">DHCP Server :</td><td id="TD_dhcp_server_enable">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="td_bold">IP Pool Range :</td><td id="TD_dhcp_server_ip_pool">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="td_bold">Lease Time :</td><td id="TD_dhcp_server_lease_time">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="td_bold">Domain Name Server :</td><td id="TD_dhcp_server_name">&nbsp;</td>
+			</tr>
+			</table>
+		</div>
+		
+		<p class="do bk_black">Hardware</p>
+		<div class="div_black">
+			<table class="td_table_s" id='Table_hardware'>
+			<tr>
+				<td class="td_bold">Hardware Platform :</td><td id="TD_Hardware_platform">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="td_bold">Hardware :</td><td id="TD_Hardware_version">&nbsp;</td>
+			</tr>
+			</table>
+		</div>
+		</div>
+		<div class="div_button"><input type="button" value="Refresh" onClick="uiPageRefresh()" /></div>
+	</td>
+	<td class="td_help">
+		<div class="help">
+			<h5 style="display:none">Helpful Hints...</h5>
+			<div>
+			<p style="display:none">All of your VoIP Router's Information, WAN, LAN and VoIP status and details are display here.</p>
+			<p style="display:none">Details include firmware version, MAC address, Default gateway, Modem IP and etc.</p>
+			</p></div>
+			<h5 style="display:none"><a href="/cgi-bin/webproc?getpage=html/index.html&var:menu=help&var:page=helpstatus#DeviceInfo">More...</a></h5>
+		</div>
+	</td>
+
+
+
+	</tr>
+</table>
+<!-- footer -->
+<div class="footer"><img src="/html/skin/broadband.gif" /></div>
+<!-- copyright -->
+<p id="copyright">Copyright © 2005-2007 D-Link Systems, Inc.</p>
+<!-- form -->
+<form id="uiPostForm" method="post" action="webproc"></form>
+</body>
+</html>

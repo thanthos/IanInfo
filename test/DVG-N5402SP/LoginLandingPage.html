@@ -1,0 +1,208 @@
+
+
+
+
+
+
+
+	
+	
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Pragma" content="No-cache" />
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+<meta http-equiv="Expires" content="-1" />
+<title>D-Link VoIP Wireless Router</title>
+<link type="text/css" rel="stylesheet" href="/html/skin/common.css?v=dlink0006" media="screen" />
+<script type="text/javascript" src="/html/languages/en_us/error.js?v=dlink0006"></script>
+<script type="text/javascript" src="/html/languages/en_us/menu.js?v=dlink0006"></script>
+<script type="text/javascript" src="/html/languages/en_us/page/wireless.js?v=dlink0006"></script>
+<script type="text/javascript" src="/html/js/boot.js?v=dlink0006"></script>
+<script type="text/javascript" src="/html/js/secboot.js?v=dlink0006"></script>
+<script type="text/javascript">
+<!--
+/*---- Global variable define -----*/
+var G_Error	    = "0"; 
+var G_Status	= "0"; 
+var G_Error_Msg	= "";
+var G_ViewState	= "-";
+var userLevel   = "2";
+var G_Menu      = "setup";
+var G_Page      = "wireless";
+var G_SubPage   = "-";
+var G_ErrorPage = "-";
+var G_Version='SH_1.00B047';
+var G_Date='08/26/2014-17:09:37';
+//
+
+//wireless entrance
+function toWlBasic(){
+	document.location.href = '/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wireless&var:subpage=wlbasic';
+}
+
+function toWlSecurity(){
+	document.location.href = '/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wireless&var:subpage=wlsecurity';
+}
+
+function toWps(){
+	document.location.href = '/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wireless&var:subpage=wps';
+}
+
+function toWlWds(){
+	document.location.href = '/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wireless&var:subpage=wlwds';
+}
+
+function toWlsurvey(){
+	document.location.href = '/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wireless&var:subpage=wlsurvey';
+}
+-->
+</script>
+</head>
+
+<body>
+<!-- header -->
+<div class="header">
+	<!-- title -->
+	<div class="title">
+	<div class="firmware"><a href="/cgi-bin/webproc?getpage=html/index.html&var:menu=aa&var:page=sitemap"><img src="/html/skin/img_arrow.gif" alt="site map"/> Site Map</a>&nbsp;&nbsp;&nbsp;&nbsp; Firmware Version : SH_2.00B056</div> 
+	</div>
+	<!-- logo -->
+	<div class="logo">
+		<table>
+			<td align="left" width="5%">
+				<img src="/html/skin/logo.gif" alt="logo"/>
+			</td>
+			<td width="90%"></td>
+			<td algin="right" width="5%">
+				<img src="/html/skin/logo_StarHub.gif" alt="logo"/>
+			</td>
+		</table>
+	</div>
+</div>
+<!-- main menu -->
+<div class="main_menu">
+	<div class="model"><img src="/html/skin/img_modnum_N5402SP.gif" alt="N5402SP" /></div>
+	<ul>
+		<li><a id="on" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wizard"><span id="">setup</span></a></li>
+		<li><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=advanced&var:page=advvoip"><span id="">advanced</span></a></li>
+		<li><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=maintenance&var:page=accountpsd"><span id="">maintenance</span></a></li>
+		<li><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=deviceinfo"><span id="">status</span></a></li>
+  <!--   <li><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=help&var:page=helpmenu"><span id="">help</span></a></li>
+    -->
+	</ul>
+</div>
+<!-- content -->
+<table class="content">
+	<tr>
+	<!-- sub menu-->
+			<td class="td_menu">
+			<div class="sub_menu">
+			<!-- setup -->
+				<p class="SecLevel"><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wizard">Wizard</a></p>
+				<p class="SecLevel"><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=connected">Internet Setup</a></p>
+				<p class="SecLevel"><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=voipsetup">VoIP Setup</a></p>
+				<p><a id="on" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wireless" onmouseover="onShowMenu(this)" onmouseout="onCloseMenu()">Wireless Setup</a></p>
+				<ul class="thirdMenu" onmouseover="onClearTimeOut()" onmouseout="onHiddenMenu(event)">
+					<li><a href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wireless&var:subpage=wlbasic">Wireless Basic</a></li>
+					<li><a href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wireless&var:subpage=wlsecurity">Wireless Security</a></li>
+					<li><a href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wireless&var:subpage=wps">WPS</a></li>
+					<li class="SecLevel"><a href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wireless&var:subpage=wlwds">WDS</a></li>
+					<!--
+					<li><a href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wireless&var:subpage=wlsurvey">Site Survey</a></li>
+					-->
+				</ul>
+				<p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=lan">LAN Setup</a></p>
+               <p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=ipv6_lan">LAN IPV6 Setup</a></p>                  
+            
+				<p class="SecLevel"><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=date">Time and Date</a></p>
+				<p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=logout">Logout</a></p>
+			
+			<!-- advanced -->
+			
+			<!-- maintenance -->
+			
+			<!-- status -->
+			
+			<!-- help -->
+			
+			</div>
+		</td>
+
+	<!-- config -->
+			<td>
+			<div class="config2">
+				<p class="bk_orange">Wireless Setup</p>
+				<div class="div_orange">
+					<p>
+						This section allows you to setup your wireless network on the VoIP Router device.
+					</p>
+				</div>
+				<p class="bk_black do">Wireless Settings -- Wireless Basic</p>
+				<div class="div_black">
+					<p>
+						This setting is designed to assist you in connecting your wireless device to your router. Click the button below to begin the basics settings.
+					</p>
+					<div class="div_button"><input type="button" value="Wireless Basic" onClick="toWlBasic()"/></div>
+				</div>
+				<p class="do bk_black">Wireless Settings -- Wireless Security</p>
+				<div class="div_black">
+					<p>
+						Configure your wireless security settings.
+					</p>
+					<div class="div_button"><input type="button" value="Wireless Security" onClick="toWlSecurity()"/></div>
+				</div>
+				<p class="do bk_black">Wireless Settings -- WPS</p>
+				<div class="div_black">
+					<p>
+						Configure your WPS settings.
+					</p>
+					<div class="div_button"><input type="button" value="WPS" onClick="toWps()"/></div>
+				</div>
+           <div class="SecLevel">
+				<p class="do bk_black">Wireless Settings -- WDS</p>
+				<div class="div_black">
+					<p>
+						Configure your WDS settings.
+					</p>
+					<div class="div_button"><input type="button" value="WDS" onClick="toWlWds()"/></div>
+				</div>
+		   </div>		
+				<div style="display:none;">
+				<p class="do bk_black">Wireless Setup -- Site Survey</p>
+				<div class="div_black">
+					<p>
+						Site Survey.
+					</p>
+					<div class="div_button"><input type="button" value="Site Survey" onClick="toWlsurvey()"/></div>
+				</div>				
+				</div>
+			</div>
+		</td>
+		<td class="td_help">
+			<div class="help">
+				<h5 style="display:none">Helpful Hints...</h5>
+				<p style="display:none">
+					1. Every device in the same wireless network must use the same SSID.
+				</p>
+				<p style="display:none">
+					2. To avoid wireless network overlap, a specific and different channel is needed.
+				</p>
+				<p style="display:none">
+					3. Make sure security used by every device in the same wireless network is compatible with the wireless AP.
+				</p>
+			</div>
+		</td>
+
+	</tr>
+</table>
+<!-- footer -->
+<div class="footer"><img src="/html/skin/broadband.gif" /></div>
+<!-- copyright -->
+<p id="copyright">Copyright © 2005-2007 D-Link Systems, Inc.</p>
+<!-- form -->
+<form id="uiPostForm" method="post" action="webproc"></form>
+</body>
+</html>

@@ -1,0 +1,449 @@
+
+
+
+
+
+
+
+	
+	
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Pragma" content="No-cache" />
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+<meta http-equiv="Expires" content="-1" />
+<title>D-Link VoIP Wireless Router</title>
+<link type="text/css" rel="stylesheet" href="/html/skin/common.css?v=dlink0006" media="screen" />
+<script type="text/javascript" src="/html/languages/en_us/error.js?v=dlink0006"></script>
+<script type="text/javascript" src="/html/languages/en_us/menu.js?v=dlink0006"></script>
+<script type="text/javascript" src="/html/languages/en_us/page/dhcpclients.js?v=dlink0006"></script>
+<script type="text/javascript" src="/html/js/boot.js?v=dlink0006"></script>
+<script type="text/javascript" src="/html/js/secboot.js?v=dlink0006"></script>
+<script type="text/javascript">
+<!--
+/*---- Global variable define -----*/
+var G_Error	    = "0"; 
+var G_Status	= "0"; 
+var G_Error_Msg	= "";
+var G_ViewState	= "-";
+var userLevel   = "2";
+var G_Menu      = "status";
+var G_Page      = "dhcpclients";
+var G_SubPage   = "-";
+var G_ErrorPage = "-";
+var G_Version='SH_1.00B047';
+var G_Date='08/26/2014-17:09:37';
+//
+
+//WLAN
+var WlanHosts = [];
+var n = 0; //BSSID X_TWSZ-COM_PowerSave
+	WlanHosts[n] = ["hmFibre", //SSID
+					"0", //TotalPacketsSent
+					"0", //TotalPacketsReceived
+					"0", //TotalErrorsSent
+					"0", //TotalErrorsReceived
+					"0", //TotalDiscardPacketsSent
+					"0"  //TotalDiscardPacketsReceived
+					];
+	n++;
+	WlanHosts[n] = ["dlink1", //SSID
+					"0", //TotalPacketsSent
+					"0", //TotalPacketsReceived
+					"0", //TotalErrorsSent
+					"0", //TotalErrorsReceived
+					"0", //TotalDiscardPacketsSent
+					"0"  //TotalDiscardPacketsReceived
+					];
+	n++;
+	WlanHosts[n] = ["dlink2", //SSID
+					"0", //TotalPacketsSent
+					"0", //TotalPacketsReceived
+					"0", //TotalErrorsSent
+					"0", //TotalErrorsReceived
+					"0", //TotalDiscardPacketsSent
+					"0"  //TotalDiscardPacketsReceived
+					];
+	n++;
+	WlanHosts[n] = ["dlink3", //SSID
+					"0", //TotalPacketsSent
+					"0", //TotalPacketsReceived
+					"0", //TotalErrorsSent
+					"0", //TotalErrorsReceived
+					"0", //TotalDiscardPacketsSent
+					"0"  //TotalDiscardPacketsReceived
+					];
+	n++;
+
+
+//LAN
+var LanHosts = [];
+var m = 0;
+			LanHosts[m] = ["unknown", //HostName
+						   "192.168.151.32", //IPAddress
+						   "00:11:32:31:53:06", //MACAddress
+						   "0", //LeaseTimeRemaining
+						   "InternetGatewayDevice.LANDevice.1.LANEthernetInterfaceConfig.2.", //Layer2Interface
+						   "1"  //Active
+						   ];
+			++m;
+			LanHosts[m] = ["unknown", //HostName
+						   "192.168.151.199", //IPAddress
+						   "8C:29:37:D3:BA:44", //MACAddress
+						   "0", //LeaseTimeRemaining
+						   "InternetGatewayDevice.LANDevice.1.LANEthernetInterfaceConfig.2.", //Layer2Interface
+						   "1"  //Active
+						   ];
+			++m;
+			LanHosts[m] = ["unknown", //HostName
+						   "192.168.151.10", //IPAddress
+						   "E4:71:85:31:0B:E1", //MACAddress
+						   "0", //LeaseTimeRemaining
+						   "InternetGatewayDevice.LANDevice.1.LANEthernetInterfaceConfig.2.", //Layer2Interface
+						   "1"  //Active
+						   ];
+			++m;
+			LanHosts[m] = ["unknown", //HostName
+						   "192.168.151.103", //IPAddress
+						   "68:96:7B:2A:1C:A9", //MACAddress
+						   "0", //LeaseTimeRemaining
+						   "InternetGatewayDevice.LANDevice.1.LANEthernetInterfaceConfig.2.", //Layer2Interface
+						   "1"  //Active
+						   ];
+			++m;
+			LanHosts[m] = ["unknown", //HostName
+						   "192.168.151.104", //IPAddress
+						   "F0:25:B7:9C:0C:CF", //MACAddress
+						   "0", //LeaseTimeRemaining
+						   "InternetGatewayDevice.LANDevice.1.LANEthernetInterfaceConfig.2.", //Layer2Interface
+						   "1"  //Active
+						   ];
+			++m;
+			LanHosts[m] = ["unknown", //HostName
+						   "192.168.151.175", //IPAddress
+						   "60:36:DD:C3:51:40", //MACAddress
+						   "0", //LeaseTimeRemaining
+						   "InternetGatewayDevice.LANDevice.1.LANEthernetInterfaceConfig.2.", //Layer2Interface
+						   "1"  //Active
+						   ];
+			++m;
+			LanHosts[m] = ["unknown", //HostName
+						   "192.168.151.190", //IPAddress
+						   "F0:92:1C:4D:5F:BA", //MACAddress
+						   "0", //LeaseTimeRemaining
+						   "InternetGatewayDevice.LANDevice.1.LANEthernetInterfaceConfig.2.", //Layer2Interface
+						   "1"  //Active
+						   ];
+			++m;
+			LanHosts[m] = ["unknown", //HostName
+						   "192.168.151.116", //IPAddress
+						   "CC:3A:61:87:4D:1C", //MACAddress
+						   "0", //LeaseTimeRemaining
+						   "InternetGatewayDevice.LANDevice.1.LANEthernetInterfaceConfig.2.", //Layer2Interface
+						   "1"  //Active
+						   ];
+			++m;
+		
+	
+	
+
+var G_LanStatus = [];
+var m = 0;
+	G_LanStatus[m] = [];
+	G_LanStatus[m][0] = "LAN1"; //Description
+	G_LanStatus[m][1] = "985390"; // PacketsSent
+	G_LanStatus[m][2] = "0"; // PacketsReceived
+	G_LanStatus[m][3] = "0"; //RxError
+	G_LanStatus[m][4] = "0"; //TxError
+	G_LanStatus[m][5] = "0";//bytesSent
+	G_LanStatus[m][6] = "0";//BytesReceived
+	G_LanStatus[m][7] = "Down";//status
+	m++;
+	G_LanStatus[m] = [];
+	G_LanStatus[m][0] = "LAN2"; //Description
+	G_LanStatus[m][1] = "2659471"; // PacketsSent
+	G_LanStatus[m][2] = "5014985"; // PacketsReceived
+	G_LanStatus[m][3] = "0"; //RxError
+	G_LanStatus[m][4] = "0"; //TxError
+	G_LanStatus[m][5] = "0";//bytesSent
+	G_LanStatus[m][6] = "0";//BytesReceived
+	G_LanStatus[m][7] = "Up";//status
+	m++;
+	G_LanStatus[m] = [];
+	G_LanStatus[m][0] = "LAN3"; //Description
+	G_LanStatus[m][1] = "973365"; // PacketsSent
+	G_LanStatus[m][2] = "51033"; // PacketsReceived
+	G_LanStatus[m][3] = "0"; //RxError
+	G_LanStatus[m][4] = "0"; //TxError
+	G_LanStatus[m][5] = "0";//bytesSent
+	G_LanStatus[m][6] = "0";//BytesReceived
+	G_LanStatus[m][7] = "Down";//status
+	m++;
+	G_LanStatus[m] = [];
+	G_LanStatus[m][0] = "LAN4"; //Description
+	G_LanStatus[m][1] = "985390"; // PacketsSent
+	G_LanStatus[m][2] = "0"; // PacketsReceived
+	G_LanStatus[m][3] = "0"; //RxError
+	G_LanStatus[m][4] = "0"; //TxError
+	G_LanStatus[m][5] = "0";//bytesSent
+	G_LanStatus[m][6] = "0";//BytesReceived
+	G_LanStatus[m][7] = "Down";//status
+	m++;
+
+var G_IPv6Client = ""
+function uiOnload(){
+	for(var i = 1;i<=4;i++)
+	{
+		G_LanStatus[i-1][0] = "Port"+i;
+	}
+	for(var j = 1;j<=4;j++)
+	{
+		if(G_LanStatus[j-1][7] == "Up")
+		{
+			G_LanStatus[j-1][7] = "Connected";
+		}
+		else
+		{
+			G_LanStatus[j-1][7] = "Disconnect";
+		}
+	}
+	var _dhcplan = [], _dhcpwlan = [], _wlan = WlanHosts;
+	var _local =G_LanStatus;
+	//lan
+	for(var i = 0, k = 0, l = 0, _len1 = LanHosts.length; i < _len1; i++){
+		
+		//wlan
+		for(var j = 0, _len2 = WlanHosts.length; j < _len2; j++){
+			//Compare Mac
+			if(LanHosts[i][2] == WlanHosts[j][0]){
+				_wlan[j].push(LanHosts[i][3]);
+			}
+		}
+		if(LanHosts[i][4].indexOf("WLANConfiguration") > -1)
+		{
+		    _dhcpwlan[l]    = [];
+			_dhcpwlan[l][0] = LanHosts[i][0];
+			_dhcpwlan[l][1] = LanHosts[i][1];
+			_dhcpwlan[l][2] = LanHosts[i][2];
+			_dhcpwlan[l][3] = LanHosts[i][3];
+			_dhcpwlan[l][4] = LanHosts[i][5] == "1" ? "Active" : "Inactive";
+			l++;
+		}
+		else
+		{
+		    _dhcplan[k]    = [];
+			_dhcplan[k][0] = LanHosts[i][0];
+			_dhcplan[k][1] = LanHosts[i][1];
+			_dhcplan[k][2] = LanHosts[i][2];
+			_dhcplan[k][3] = LanHosts[i][3];
+			_dhcplan[k][4] = LanHosts[i][5] == "1" ? "Active" : "Inactive";
+			k++;
+		}
+		//k++;
+	}
+	var _ipv6lan = [];
+	var ipv6clients = G_IPv6Client.split(';');
+	for(var i = 0; i<ipv6clients.length ;i++)
+	{
+		var ipv6client = ipv6clients[i].split(',');
+		_ipv6lan[i] = [];
+		for(var j = 0; j<ipv6client.length;j++)
+		{
+            _ipv6lan[i][j] = ipv6client[j];
+		}
+	}
+   $T('td_Ipv6Clients',_ipv6lan);
+
+	if (userLevel == 1)
+		$T('td_wlanClients', _wlan);
+	else{
+		var _wlanUser = [];
+		_wlanUser[0] = WlanHosts[0];
+		$T('td_wlanClients', _wlanUser);
+	}
+	$T('td_dhcplanClients',_dhcplan);
+	$T('td_dhcpwlanClients',_dhcpwlan);
+	$T('td_locallanClients',_local);
+
+	setTimeout('uiPageRefresh()', 10000);
+}
+
+addListeners(uiOnload);
+
+-->
+</script>
+</head>
+
+<body>
+<!-- header -->
+<div class="header">
+	<!-- title -->
+	<div class="title">
+	<div class="firmware"><a href="/cgi-bin/webproc?getpage=html/index.html&var:menu=aa&var:page=sitemap"><img src="/html/skin/img_arrow.gif" alt="site map"/> Site Map</a>&nbsp;&nbsp;&nbsp;&nbsp; Firmware Version : SH_2.00B056</div> 
+	</div>
+	<!-- logo -->
+	<div class="logo">
+		<table>
+			<td align="left" width="5%">
+				<img src="/html/skin/logo.gif" alt="logo"/>
+			</td>
+			<td width="90%"></td>
+			<td algin="right" width="5%">
+				<img src="/html/skin/logo_StarHub.gif" alt="logo"/>
+			</td>
+		</table>
+	</div>
+</div>
+<!-- main menu -->
+<div class="main_menu">
+	<div class="model"><img src="/html/skin/img_modnum_N5402SP.gif" alt="N5402SP" /></div>
+	<ul>
+		<li><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=setup&var:page=wizard"><span id="">setup</span></a></li>
+		<li><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=advanced&var:page=advvoip"><span id="">advanced</span></a></li>
+		<li><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=maintenance&var:page=accountpsd"><span id="">maintenance</span></a></li>
+		<li><a id="on" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=deviceinfo"><span id="">status</span></a></li>
+  <!--   <li><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=help&var:page=helpmenu"><span id="">help</span></a></li>
+    -->
+	</ul>
+</div>
+<!-- content -->
+<table class="content">
+	<tr>
+	<!-- sub menu-->
+			<td class="td_menu">
+			<div class="sub_menu">
+			<!-- setup -->
+			
+			<!-- advanced -->
+			
+			<!-- maintenance -->
+			
+			<!-- status -->
+				<p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=deviceinfo">Device Info</a></p>
+				<p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=voip_status">VoIP Status</a></p>
+				<p><a id="on" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=dhcpclients">LAN Client</a></p>
+                   <p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=ipv6_status">IPv6 Status</a></p>
+                
+				<!--
+				<p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=logview">Logs</a></p>
+				-->
+				<p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=statistics">Statistics</a></p>
+				<p class="SecLevel"><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=routeinfo">Routing Table</a></p>
+				<p><a id="" href="/cgi-bin/webproc?getpage=html/index.html&var:menu=status&var:page=logout">Logout</a></p>
+			
+			<!-- help -->
+			
+			</div>
+		</td>
+
+	<!-- config -->
+	<!-- config -->
+<td>
+	<div class="config2">
+		<p class="bk_orange">LAN Client</p>
+		<div class="div_orange">
+			<p>In this section you can see what LAN devices are currently leasing IP addresses.</p>
+		</div>
+		<!-- Active Wireless Clients -->
+		<div id="lan_client">
+		<p class="do bk_black">LAN STATUS</p>
+		<div class="div_black">
+			<table class="td_table_s" id="td_locallanClients">
+				<tr class="tr_bold">
+					<td>LAN</td>
+					<td>Packets Sent</td>
+					<td>Packets Received</td>
+					<td>Errors Sent</td>
+					<td>Errors Received</td>
+					<td>Discard Packets Sent</td>
+					<td>Discard Packets Received</td>
+					<td>Link Status</td>
+				</tr>
+			</table>
+		</div>
+		</div>
+		
+		<div id="wlan_client">
+		<p class="do bk_black">WIRELESS STATUS</p>
+		<div class="div_black">
+			<table class="td_table_s" id="td_wlanClients">
+				<tr class="tr_bold">
+					<td>SSID</td>
+					<td>Packets Sent</td>
+					<td>Packets Received</td>
+					<td>Errors Sent</td>
+					<td>Errors Received</td>
+					<td>Discard Packets Sent</td>
+					<td>Discard Packets Received</td>
+				</tr>
+			</table>
+		</div>
+		</div>
+		<!-- Dhcp Clients -->
+		<p class="do bk_black">LAN CLIENTS</p>
+		<div class="div_black">
+			<table class="td_table_s" id="td_dhcplanClients">
+				<tr class="tr_bold">
+					<td>Hostname</td>
+					<td>IP Address</td>
+					<td>MAC Address</td>
+					<td>Live Time (s)</td>
+					<td>Status</td>
+				</tr>
+			</table>
+		</div>
+		<p class="do bk_black">WLAN CLIENTS</p>
+		<div class="div_black">
+			<table class="td_table_s" id="td_dhcpwlanClients">
+				<tr class="tr_bold">
+					<td>Hostname</td>
+					<td>IP Address</td>
+					<td>MAC Address</td>
+					<td>Live Time (s)</td>
+					<td>Status</td>
+				</tr>
+			</table>
+		</div>
+			
+		<p class="do bk_black">IPv6 CLIENTS</p>
+		<div class="div_black">
+			<table class="td_table_s" id="td_Ipv6Clients">
+				<tr class="tr_bold">
+					<td>MAC Address</td>
+					<td>IP Address</td>
+					<td>Live Time (s)</td>
+				</tr>
+			</table>
+		</div>
+
+		<div class="div_button">
+			<input type="button" name="refresh" id="refresh" value="Refresh" onClick="uiPageRefresh()" >
+		</div>
+	</div>
+</td>
+<!-- help -->
+<td class="td_help">
+	<div class="help">
+		<h5 style="display:none">Helpful Hints...</h5>
+		<div>
+		<p style="display:none">
+			This is a list of all LAN clients that are currently connected to your wireless Router.
+		</p></div>
+		<h5 style="display:none"><a href="/cgi-bin/webproc?getpage=html/index.html&var:menu=help&var:page=helpstatus#Wireless">More...</a></h5>
+	</div>
+</td>
+
+
+	</tr>
+</table>
+<!-- footer -->
+<div class="footer"><img src="/html/skin/broadband.gif" /></div>
+<!-- copyright -->
+<p id="copyright">Copyright © 2005-2007 D-Link Systems, Inc.</p>
+<!-- form -->
+<form id="uiPostForm" method="post" action="webproc"></form>
+</body>
+</html>
